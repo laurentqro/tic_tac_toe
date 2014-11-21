@@ -10,5 +10,9 @@ module TicTacToe
     def mark_space(space, mark)
       @grid[space - 1] = mark
     end
+
+    def available_moves
+     @grid.grep(Integer) 
+    end
   end
 end
