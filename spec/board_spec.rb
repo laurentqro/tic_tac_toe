@@ -17,9 +17,17 @@ describe TicTacToe::Board do
   
   describe "#available_moves" do
     it "lists all available moves" do
-      board.mark_space(1, "X")
-      board.mark_space(6, "O")
-      expect(board.available_moves).to eql [2,3,4,5,7,8,9]
+      board = TicTacToe::Board.new ["X", 2, 3, 4, 5, "X", 7, 8, 9]
+      expect(board.available_moves).to eql [2, 3, 4, 5, 7, 8, 9]
+    end
+  end
+
+  describe "#winner?" do
+    it "checks for a winner" do
+      board_1 = TicTacToe::Board.new ["X", "X", "X", 4, 5, 6, 7, 8, 9]
+      board_2 = TicTacToe::Board.new ["X", "O", "X", 4, 5, 6, 7, 8, 9]
+      expect(board_1.winner?).to eql true
+      expect(board_2.winner?).to eql false
     end
   end
 end
