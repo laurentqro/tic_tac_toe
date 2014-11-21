@@ -3,6 +3,7 @@ require_relative "../lib/board.rb"
 
 describe TicTacToe::Board do
   let (:board) { TicTacToe::Board.new }
+  
   it "has a 3x3 grid" do
     expect(board.grid).to eql [1,2,3,4,5,6,7,8,9]
   end
@@ -28,6 +29,13 @@ describe TicTacToe::Board do
       board_2 = TicTacToe::Board.new ["X", "O", "X", 4, 5, 6, 7, 8, 9]
       expect(board_1.winner?).to eql true
       expect(board_2.winner?).to eql false
+    end
+  end
+
+  describe "#draw?" do
+    it "checks for a draw" do
+      board = TicTacToe::Board.new ["X", "O", "X", "O", "X", "O", "X", "O", "X"]
+      expect(board.draw?).to eql true
     end
   end
 end

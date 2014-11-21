@@ -19,6 +19,10 @@ module TicTacToe
      WINNING_COMBINATIONS.include? @grid 
     end
 
+    def draw?
+      available_moves == []
+    end
+
     private
 
     WINNING_COMBINATIONS =  [
