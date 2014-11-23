@@ -13,6 +13,8 @@ module TicTacToe
       winning_row_col_or_diag.grep(Integer)[0]
     end
 
+    private
+
     def winning_space?(row_col_or_diag)
        row_col_or_diag.count(mark) == 2 && row_col_or_diag.grep(Integer).any?
     end
