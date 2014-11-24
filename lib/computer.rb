@@ -7,10 +7,10 @@ module TicTacToe
     end
     
     def winning_space(mark, board)
-      winning_line = (board.rows + board.columns + board.diagonals).find do
-        |line| winning_space_on_line?(mark, line)
+      winning_triple = board.triples.find do
+        |triple| winning_space_on_triple?(mark, triple)
       end
-      available_space_on_line(winning_line)
+      available_space_on_triple(winning_triple)
     end
 
     def opponent_winning_space(board)
@@ -23,20 +23,20 @@ module TicTacToe
 
     private
 
-    def winning_space_on_line?(mark, line)
-      two_in_a_row_on_line?(mark, line) && available_space_on_line?(line)
+    def winning_space_on_triple?(mark, triple)
+      two_in_a_row_on_triple?(mark, triple) && available_space_on_triple?(triple)
     end
 
-    def two_in_a_row_on_line?(mark, line)
-      line.count(mark) == 2
+    def two_in_a_row_on_triple?(mark, triple)
+      triple.count(mark) == 2
     end
 
-    def available_space_on_line(line)
-      line.grep(Integer)[0]
+    def available_space_on_triple(triple)
+      triple.grep(Integer)[0]
     end
 
-    def available_space_on_line?(line)
-      available_space_on_line(line) != nil
+    def available_space_on_triple?(triple)
+      available_space_on_triple(triple) != nil
     end
 
     def opponent_mark

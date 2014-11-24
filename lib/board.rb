@@ -23,18 +23,9 @@ module TicTacToe
       available_moves == []
     end
 
-    def rows
-      grid.each_slice(3).to_a
+    def triples
+      rows + columns + diagonals
     end
-
-    def columns
-     rows.transpose
-    end
-
-    def diagonals
-     [] << right_diagonal << left_diagonal
-    end
-
     private
 
     WINNING_COMBINATIONS =  [
@@ -47,7 +38,19 @@ module TicTacToe
       ["X", 2, 3, 4, "X", 6, 7, 8, "X"],
       [1, 2, "X", 4, "X", 6, "X", 8, 9]
     ]
-    
+ 
+    def rows
+      grid.each_slice(3).to_a
+    end
+
+    def columns
+     rows.transpose
+    end
+
+    def diagonals
+     [] << right_diagonal << left_diagonal
+    end
+ 
     def right_diagonal
       rows.each_with_index.map { |row, index| row[index] }
     end

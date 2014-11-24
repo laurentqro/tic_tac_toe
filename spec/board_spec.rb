@@ -39,24 +39,19 @@ describe TicTacToe::Board do
     end
   end
 
-  describe "#rows" do
-    it "returns the rows on the board" do
+  describe "#triples" do
+    it "returns the on the triples on the board" do
       board = TicTacToe::Board.new ["X", "O", "X", 4, "O", 6, 7, 8, 9]
-      expect(board.rows).to eql [["X", "O", "X"], [4, "O", 6], [7, 8, 9]]
-    end
-  end
-  
-  describe "#columns" do
-    it "returns the columns on the board" do
-      board = TicTacToe::Board.new ["X", "O", "X", 4, "O", 6, 7, 8, 9]
-      expect(board.columns).to eql [["X", 4, 7], ["O", "O", 8], ["X", 6, 9]]
-    end
-  end
-
-  describe "#diagonals" do
-    it "returns the diagonals on the board" do
-      board = TicTacToe::Board.new ["X", "O", "X", 4, "O", 6, 7, 8, 9]
-      expect(board.diagonals).to eql [["X", "O", 9], ["X", "O", 7]]
+      expect(board.triples).to eql [
+        ["X", "O", "X"],
+        [ 4 , "O",  6 ],
+        [ 7 ,  8 ,  9 ],
+        ["X",  4 ,  7 ],
+        ["O", "O",  8 ],
+        ["X",  6 ,  9 ],
+        ["X", "O",  9 ],
+        ["X", "O",  7 ]
+      ]
     end
   end
 
