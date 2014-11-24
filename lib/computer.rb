@@ -13,6 +13,10 @@ module TicTacToe
       winning_row_col_or_diag.grep(Integer)[0]
     end
 
+    def make_move(space, board)
+      board.mark_space(space, mark)
+    end
+
     private
 
     def winning_space?(row_col_or_diag)
