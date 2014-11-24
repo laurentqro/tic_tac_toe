@@ -13,10 +13,10 @@ describe TicTacToe::Computer do
   end
   
   describe "#opponent_winning_space" do
-    xit "returns the opponent's winning space" do
+    it "returns the opponent's winning space" do
       computer = TicTacToe::Computer.new(mark: "X")
       board = TicTacToe::Board.new [1, 2, 3, 4, 5, 6, "O", "O", 9]
-      expect(computer.opponent_winning_space).to eql 9
+      expect(computer.opponent_winning_space(board)).to eql 9
     end
   end
 

@@ -13,6 +13,10 @@ module TicTacToe
       available_space_on_line(winning_line)
     end
 
+    def opponent_winning_space(board)
+      winning_space(opponent_mark, board)
+    end
+
     def make_move(space, board)
       board.mark_space(space, mark)
     end
@@ -33,6 +37,10 @@ module TicTacToe
 
     def available_space_on_line?(line)
       available_space_on_line(line) != nil
+    end
+
+    def opponent_mark
+      @mark == "X" ? "O" : "X" 
     end
 
   end
