@@ -16,7 +16,15 @@ module TicTacToe
     private
 
     def winning_space?(row_col_or_diag)
-       row_col_or_diag.count(mark) == 2 && row_col_or_diag.grep(Integer).any?
+       two_in_a_row?(row_col_or_diag) && available_space?(row_col_or_diag)
+    end
+
+    def two_in_a_row?(row_col_or_diag)
+      row_col_or_diag.count(mark) == 2
+    end
+
+    def available_space?(row_col_or_diag)
+      row_col_or_diag.grep(Integer).any?
     end
 
   end
