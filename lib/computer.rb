@@ -6,11 +6,11 @@ module TicTacToe
       @mark = mark
     end
     
-    def check_for_winning_space_on(board)
-      winning_row_col_or_diag = (board.rows + board.columns + board.diagonals).find do
-        |row_col_or_diag| winning_space?(row_col_or_diag)
+    def winning_space(mark, board)
+      winning_line = (board.rows + board.columns + board.diagonals).find do
+        |line| winning_space_on_line?(mark, line)
       end
-      winning_row_col_or_diag.grep(Integer)[0]
+      available_space_on_line(winning_line)
     end
 
     def make_move(space, board)
@@ -19,16 +19,20 @@ module TicTacToe
 
     private
 
-    def winning_space?(row_col_or_diag)
-       two_in_a_row?(row_col_or_diag) && available_space?(row_col_or_diag)
+    def winning_space_on_line?(mark, line)
+      two_in_a_row_on_line?(mark, line) && available_space_on_line?(line)
     end
 
-    def two_in_a_row?(row_col_or_diag)
-      row_col_or_diag.count(mark) == 2
+    def two_in_a_row_on_line?(mark, line)
+      line.count(mark) == 2
     end
 
-    def available_space?(row_col_or_diag)
-      row_col_or_diag.grep(Integer).any?
+    def available_space_on_line(line)
+      line.grep(Integer)[0]
+    end
+
+    def available_space_on_line?(line)
+      available_space_on_line(line) != nil
     end
 
   end
