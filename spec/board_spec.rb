@@ -25,10 +25,16 @@ describe TicTacToe::Board do
 
   describe "#winner?" do
     it "checks for a winner" do
-      board_1 = TicTacToe::Board.new ["X", "X", "X", 4, 5, 6, 7, 8, 9]
-      board_2 = TicTacToe::Board.new ["X", "O", "X", 4, 5, 6, 7, 8, 9]
+      board_1 = TicTacToe::Board.new ["X", "X", "X",
+                                       4 , "O",  6 ,
+                                      "O",  8,   9 ]
       expect(board_1.winner?).to eql true
+
+      board_2 = TicTacToe::Board.new ["X", "O", "X",
+                                       4 , "O",  6 ,
+                                      "O",  8 ,  9 ]
       expect(board_2.winner?).to eql false
+
     end
   end
 

@@ -16,7 +16,7 @@ module TicTacToe
     end
 
     def winner?
-     WINNING_COMBINATIONS.include? @grid
+      triples.any? { |triple| triple.uniq.count == 1 }
     end
 
     def draw?
@@ -26,19 +26,9 @@ module TicTacToe
     def triples
       rows + columns + diagonals
     end
+    
     private
 
-    WINNING_COMBINATIONS =  [
-      ["X", "X", "X", 4, 5, 6, 7, 8, 9],
-      [1, 2, 3, "X", "X", "X", 7, 8, 9],
-      [1, 2, 3, 4, 5, 6, "X", "X", "X"],
-      ["X", 2, 3, "X", 5, 6, "X", 8, 9],
-      [1, "X", 3, 4, "X", 6, 7, "X", 9],
-      [1, 2, "X", 4, 5, "X", 7, 8, "X"],
-      ["X", 2, 3, 4, "X", 6, 7, 8, "X"],
-      [1, 2, "X", 4, "X", 6, "X", 8, 9]
-    ]
- 
     def rows
       grid.each_slice(3).to_a
     end
