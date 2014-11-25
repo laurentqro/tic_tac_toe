@@ -20,7 +20,7 @@ describe TicTacToe::Computer do
     end
   end
 
-  describe "#make_move(space, board)" do
+  describe "#make_move" do
     it "sets the computer's mark on a given space" do
       computer = TicTacToe::Computer.new(mark: "X")
       board = TicTacToe::Board.new [1, 2, 3, 4, 5, 6, 7, 8, 9]
