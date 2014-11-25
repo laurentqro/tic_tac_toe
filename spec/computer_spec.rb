@@ -36,6 +36,7 @@ describe TicTacToe::Computer do
                                      4 , "X",  6,
                                      7 ,  8 , "O"]
       expect(computer.space_to_fork("X", board)).to eql 4
+      expect(computer.space_to_fork("O", board)).to eql nil
     end
   end
 

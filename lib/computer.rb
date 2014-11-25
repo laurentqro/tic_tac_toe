@@ -23,9 +23,10 @@ module TicTacToe
 
     def space_to_fork(mark, board)
       triples = board.triples.select do |triple|
-        only_one_mark_on_triple?(triple) && two_spaces_available_on_triple?(triple)
+        only_one_mark_on_triple?(mark, triple) && two_spaces_available_on_triple?(triple)
       end
-      find_duplicate_space_in_triples(triples)
+      vacant_spaces = triples.flatten.grep(Fixnum)
+      find_duplicate_in(vacant_spaces)
     end
 
     private
@@ -50,7 +51,7 @@ module TicTacToe
       @mark == "X" ? "O" : "X" 
     end
 
-    def only_one_mark_on_triple?(triple)
+    def only_one_mark_on_triple?(mark, triple)
       triple.grep(mark).count == 1 
     end
 
@@ -58,9 +59,8 @@ module TicTacToe
       triple.grep(Fixnum).count == 2
     end
 
-    def find_duplicate_space_in_triples(triples)
-      triples.flatten!
-      triples.detect { |available_space| triples.count(available_space) > 1 }
+    def find_duplicate_in(spaces)
+      spaces.detect { |space| spaces.count(space) > 1 }
     end
     
   end
