@@ -1,9 +1,8 @@
-require "spec_helper"
-require_relative "../lib/computer"
-require_relative "../lib/board"
+require "tic_tac_toe/computer"
+require "tic_tac_toe/board"
 
 describe TicTacToe::Computer do
-  
+
   describe "#winning_space" do
     it "returns a winning space" do
       computer = TicTacToe::Computer.new(mark: "X")
@@ -11,7 +10,7 @@ describe TicTacToe::Computer do
       expect(computer.winning_space(computer.mark, board)).to eql 3
     end
   end
-  
+
   describe "#opponent_winning_space" do
     it "returns the opponent's winning space" do
       computer = TicTacToe::Computer.new(mark: "X")

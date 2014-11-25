@@ -1,5 +1,4 @@
 module TicTacToe
-
   class Board
     attr_reader :grid
 
@@ -26,7 +25,7 @@ module TicTacToe
     def triples
       rows + columns + diagonals
     end
-    
+
     private
 
     def rows
@@ -40,7 +39,7 @@ module TicTacToe
     def diagonals
      [] << right_diagonal << left_diagonal
     end
- 
+
     def right_diagonal
       rows.each_with_index.map { |row, index| row[index] }
     end
