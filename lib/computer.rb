@@ -21,6 +21,14 @@ module TicTacToe
       board.mark_space(space, mark)
     end
 
+    def space_to_fork(mark, board)
+      spaces = board.triples.select do |triple|
+        triple.grep(mark).count == 1 && triple.grep(Fixnum).count == 2
+      end
+      spaces.flatten!
+      spaces.detect { |e| spaces.count(e) > 1 }
+    end
+
     private
 
     def winning_space_on_triple?(mark, triple)

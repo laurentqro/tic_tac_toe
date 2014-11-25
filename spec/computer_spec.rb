@@ -29,4 +29,14 @@ describe TicTacToe::Computer do
     end
   end
 
+  describe "#space_to_fork" do
+    it "finds a space that creates two threats to win" do
+      computer = TicTacToe::Computer.new(mark: "X")
+      board = TicTacToe::Board.new ["X", "O",  3,
+                                     4 , "X",  6,
+                                     7 ,  8 , "O"]
+      expect(computer.space_to_fork("X", board)).to eql 4
+    end
+  end
+
 end
