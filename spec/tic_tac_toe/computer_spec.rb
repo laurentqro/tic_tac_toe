@@ -39,4 +39,60 @@ describe TicTacToe::Computer do
     end
   end
 
+  describe "#determine_best_move" do
+    context "when it has two in a row" do
+      it "places a third to get three in a row" do
+        computer = TicTacToe::Computer.new(mark: "X")
+        board = TicTacToe::Board.new ["X", "O",  3,
+                                       4 , "X",  6,
+                                      "O",  8 ,  9]
+        best_move = computer.determine_best_move(board)
+        expect(best_move).to eql 9
+      end
+    end
+
+    context "when the opponent has two in a row" do
+      xit "plays the third to block the opponent" do
+      end
+    end
+
+    context "when it has two non-blocked lines of two" do
+      xit "creates a fork (two threats to win)" do
+      end
+    end
+
+    context "when blocking the opponent's opportunity to create a fork" do
+      xit "creates two in a row to force the opponent into defending" do
+      end
+
+      xit "does not result in the opponent creating a fork" do
+      end
+
+      xit "blocks the opponent's fork" do
+      end
+    end
+
+    context "when there is no opportunity to win, block, fork, or block a fork" do
+      xit "plays center" do
+      end
+    end
+
+    context "when the opponent is in a corner" do
+      xit "plays the opposite corner" do
+      end
+    end
+
+    context "a corner is available" do
+      xit "plays any of the available corners" do
+      end
+    end
+
+    context "a side is available" do
+      xit "plays any of the available sides" do
+      end
+    end
+
+
+  end
+
 end

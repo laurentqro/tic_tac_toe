@@ -1,16 +1,20 @@
 module TicTacToe
   class Computer
     attr_accessor :mark
-    
+
     def initialize(mark: mark)
       @mark = mark
     end
-    
+
     def winning_space(mark, board)
       winning_triple = board.triples.find do
         |triple| winning_space_on_triple?(mark, triple)
       end
       available_space_on_triple(winning_triple)
+    end
+
+    def winning_space?(mark, board)
+    	winning_space(mark, board) != nil
     end
 
     def opponent_winning_space(board)
@@ -28,6 +32,13 @@ module TicTacToe
       vacant_spaces = triples.flatten.grep(Fixnum)
       find_duplicate_in(vacant_spaces)
     end
+
+ 		def determine_best_move(board)
+ 			if winning_space?(self.mark, board)
+				best_move = winning_space(self.mark, board)
+			end
+			best_move
+ 		end
 
     private
 
@@ -48,11 +59,11 @@ module TicTacToe
     end
 
     def opponent_mark
-      @mark == "X" ? "O" : "X" 
+      @mark == "X" ? "O" : "X"
     end
 
     def only_one_mark_on_triple?(mark, triple)
-      triple.grep(mark).count == 1 
+      triple.grep(mark).count == 1
     end
 
     def two_spaces_available_on_triple?(triple)
@@ -62,6 +73,6 @@ module TicTacToe
     def find_duplicate_in(spaces)
       spaces.detect { |space| spaces.count(space) > 1 }
     end
-    
+
   end
 end
