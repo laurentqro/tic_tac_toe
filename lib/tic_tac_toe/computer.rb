@@ -35,12 +35,18 @@ module TicTacToe
  		def determine_best_move(board)
  			if winning_space?(self.mark, board)
 				best_move = winning_space(self.mark, board)
+        return best_move
 			end
 
 			if winning_space?(opponent_mark, board)
 				best_move = winning_space(opponent_mark, board)
+        return best_move
 			end
-			best_move
+
+      if space_to_fork(self.mark, board)
+        best_move = space_to_fork(self.mark, board)
+        return best_move
+      end
  		end
 
     private

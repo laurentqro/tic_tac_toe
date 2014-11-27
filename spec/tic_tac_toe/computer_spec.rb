@@ -63,7 +63,13 @@ describe TicTacToe::Computer do
     end
 
     context "when it has two non-blocked lines of two" do
-      xit "creates a fork (two threats to win)" do
+      it "creates a fork (two threats to win)" do
+        computer = TicTacToe::Computer.new(mark: "X")
+        board = TicTacToe::Board.new ["X", "O",  3,
+                                       4 , "X",  6,
+                                       7,   8 , "O"]
+        best_move = computer.determine_best_move(board)
+        expect(best_move).to eql 4
       end
     end
 
