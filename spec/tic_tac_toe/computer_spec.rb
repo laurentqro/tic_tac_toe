@@ -52,7 +52,13 @@ describe TicTacToe::Computer do
     end
 
     context "when the opponent has two in a row" do
-      xit "plays the third to block the opponent" do
+      it "plays the third to block the opponent" do
+        computer = TicTacToe::Computer.new(mark: "X")
+        board = TicTacToe::Board.new ["O", "O",  3,
+                                       4 , "X",  6,
+                                       7,  "X" , 9]
+        best_move = computer.determine_best_move(board)
+        expect(best_move).to eql 3
       end
     end
 

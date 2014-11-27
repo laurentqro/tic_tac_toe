@@ -7,10 +7,9 @@ module TicTacToe
     end
 
     def winning_space(mark, board)
-      winning_triple = board.triples.find do
-        |triple| winning_space_on_triple?(mark, triple)
+    	if winning_triple = find_a_winning_triple(mark, board)
+      	available_space_on_triple(winning_triple)
       end
-      available_space_on_triple(winning_triple)
     end
 
     def winning_space?(mark, board)
@@ -36,6 +35,10 @@ module TicTacToe
  		def determine_best_move(board)
  			if winning_space?(self.mark, board)
 				best_move = winning_space(self.mark, board)
+			end
+
+			if winning_space?(opponent_mark, board)
+				best_move = winning_space(opponent_mark, board)
 			end
 			best_move
  		end
@@ -72,6 +75,12 @@ module TicTacToe
 
     def find_duplicate_in(spaces)
       spaces.detect { |space| spaces.count(space) > 1 }
+    end
+
+    def find_a_winning_triple(mark, board)
+    	board.triples.find do
+        |triple| winning_space_on_triple?(mark, triple)
+      end
     end
 
   end
