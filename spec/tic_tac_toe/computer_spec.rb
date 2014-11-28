@@ -73,8 +73,15 @@ describe TicTacToe::Computer do
       end
     end
 
-    context "when blocking the opponent's opportunity to create a fork" do
-      xit "creates two in a row to force the opponent into defending" do
+    context "when opponent has the opportunity to create a fork" do
+      computer = TicTacToe::Computer.new(mark: "X")
+      board = TicTacToe::Board.new ["O", "X",  3,
+                                    4 ,  "O",  6,
+                                    7,   8 , "X"]
+
+      it "creates two in a row to force the opponent into defending" do
+        best_move = computer.determine_best_move(board)
+        expect([3, 6, 7, 8]).to include(best_move)
       end
 
       xit "does not result in the opponent creating a fork" do

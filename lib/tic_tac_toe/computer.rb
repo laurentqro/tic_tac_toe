@@ -47,6 +47,12 @@ module TicTacToe
         best_move = space_to_fork(self.mark, board)
         return best_move
       end
+
+      if space_to_fork(opponent_mark, board) && triples_with_only_one_mark(self.mark, board)
+        attacking_moves = spaces_on_triples_with_only_one_mark(mark, board)
+        best_moves = attacking_moves.reject { |move| results_in_opponent_fork?(move, board) }
+        return best_moves.first
+      end
  		end
 
     private
@@ -87,6 +93,20 @@ module TicTacToe
     	board.triples.find do
         |triple| winning_space_on_triple?(mark, triple)
       end
+    end
+
+    def results_in_opponent_fork?(move, board)
+      board_clone = board.clone
+      board_clone.mark_space(move, self.mark)
+      space_to_fork(opponent_mark, board_clone) != nil
+    end
+
+    def triples_with_only_one_mark(mark, board)
+      board.triples.select { |triple| only_one_mark_on_triple?(mark, triple) }
+    end
+
+    def spaces_on_triples_with_only_one_mark(mark, board)
+      triples_with_only_one_mark(mark, board).flatten!.uniq.grep(Integer)
     end
 
   end
