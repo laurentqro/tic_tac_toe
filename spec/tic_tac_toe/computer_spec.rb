@@ -100,7 +100,15 @@ describe TicTacToe::Computer do
     end
 
     context "when there is no opportunity to win, block, fork, or block a fork" do
-      xit "plays center" do
+      it "plays center" do
+        computer = TicTacToe::Computer.new(mark: "X")
+        board = TicTacToe::Board.new [1, 2, 3, 4, 5, 6, 7, 8, 9]
+        expect(computer.winning_space(computer.mark, board)).to be_nil
+        expect(computer.opponent_winning_space(board)).to be_nil
+        expect(computer.space_to_fork(computer.mark, board)).to be_nil
+        expect(computer.space_to_fork("O", board)).to be_nil
+        best_move = computer.determine_best_move(board)
+        expect(best_move).to eql 5
       end
     end
 

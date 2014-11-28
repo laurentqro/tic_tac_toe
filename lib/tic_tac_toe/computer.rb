@@ -53,6 +53,11 @@ module TicTacToe
         best_moves = attacking_moves.reject { |move| results_in_opponent_fork?(move, board) }
         return best_moves.first
       end
+
+      if board.available_moves.include? 5
+        return 5
+      end
+
  		end
 
     private
