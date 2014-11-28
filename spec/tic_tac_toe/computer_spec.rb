@@ -76,20 +76,26 @@ describe TicTacToe::Computer do
     context "when opponent has the opportunity to create a fork" do
       it "creates two in a row to force the opponent into defending" do
         computer = TicTacToe::Computer.new(mark: "X")
-        board = TicTacToe::Board.new ["O", "X", 3, 4 , "O", 6, 7,  8 , "X"]
+        board = TicTacToe::Board.new ["O", "X", 3, 4, "O", 6, 7, 8, "X"]
         best_move = computer.determine_best_move(board)
         expect([3, 6, 7, 8]).to include(best_move)
       end
 
       it "does not result in the opponent creating a fork" do
         computer = TicTacToe::Computer.new(mark: "X")
-        board = TicTacToe::Board.new ["O", "X",  3, 4 , "O",  6, 7, 8 , "X"]
+        board = TicTacToe::Board.new ["O", "X", 3, 4, "O", 6, 7, 8, "X"]
         best_move = computer.determine_best_move(board)
         computer.make_move(best_move, board)
         expect(computer.space_to_fork("O", board)).to be_nil
       end
 
-      xit "blocks the opponent's fork" do
+      it "successfully blocks the opponent's fork" do
+        computer = TicTacToe::Computer.new(mark: "X")
+        board = TicTacToe::Board.new ["O", "X", 3, 4, "O", 6, 7, 8, "X"]
+        expect(computer.space_to_fork("O", board)).not_to be_nil
+        best_move = computer.determine_best_move(board)
+        computer.make_move(best_move, board)
+        expect(computer.space_to_fork("O", board)).to be_nil
       end
     end
 
