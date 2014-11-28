@@ -21,7 +21,7 @@ module TicTacToe
     end
 
     def make_move(space, board)
-      board.mark_space(space, mark)
+      board.mark_space(space, self.mark)
     end
 
     def space_to_fork(mark, board)
