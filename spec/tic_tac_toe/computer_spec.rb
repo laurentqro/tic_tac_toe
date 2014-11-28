@@ -81,7 +81,7 @@ describe TicTacToe::Computer do
         expect([3, 6, 7, 8]).to include(best_move)
       end
 
-      it "does not result in the opponent creating a fork" do
+      it "moves without giving the opponent the opportunity to create a fork" do
         computer = TicTacToe::Computer.new(mark: "X")
         board = TicTacToe::Board.new ["O", "X", 3, 4, "O", 6, 7, 8, "X"]
         best_move = computer.determine_best_move(board)
