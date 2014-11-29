@@ -64,6 +64,10 @@ module TicTacToe
         }
       end
 
+      if board.corners.any? { |corner| board.available_moves.include? corner }
+        return board.corners.grep(Fixnum).first
+      end
+
  		end
 
     private

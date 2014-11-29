@@ -121,12 +121,16 @@ describe TicTacToe::Computer do
       end
     end
 
-    context "a corner is available" do
-      xit "plays any of the available corners" do
+    context "when a corner is available" do
+      it "plays any of the available corners" do
+        computer = TicTacToe::Computer.new(mark: "X")
+        board = TicTacToe::Board.new [1, 2, 3, 4, "O", 6, 7, 8, 9]
+        best_move = computer.determine_best_move(board)
+        expect(best_move).to eql 1
       end
     end
 
-    context "a side is available" do
+    context "when a side is available" do
       xit "plays any of the available sides" do
       end
     end
