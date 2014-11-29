@@ -58,6 +58,12 @@ module TicTacToe
         return 5
       end
 
+      if board.corners.include? opponent_mark
+        board.grid.map.with_index { |space, index|
+          return board.opposite_corner(index) if space == opponent_mark && board.opposite_corner(index).is_a?(Fixnum)
+        }
+      end
+
  		end
 
     private

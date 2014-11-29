@@ -113,7 +113,11 @@ describe TicTacToe::Computer do
     end
 
     context "when the opponent is in a corner" do
-      xit "plays the opposite corner" do
+      it "plays the opposite corner" do
+        computer = TicTacToe::Computer.new(mark: "X")
+        board = TicTacToe::Board.new ["O", 2, 3, 4, "X", 6, 7, 8, 9]
+        best_move = computer.determine_best_move(board)
+        expect(best_move).to eql 9
       end
     end
 
