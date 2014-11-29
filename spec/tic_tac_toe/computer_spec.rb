@@ -130,11 +130,14 @@ describe TicTacToe::Computer do
       end
     end
 
-    context "when a side is available" do
-      xit "plays any of the available sides" do
+    context "when everything else is taken" do
+      it "plays any of the four available sides" do
+        computer = TicTacToe::Computer.new(mark: "X")
+        board = TicTacToe::Board.new ["X", "O", "X", 4, "X", "O", "O", "X", "O"]
+        best_move = computer.determine_best_move(board)
+        expect(best_move).to eql 4
       end
     end
-
 
   end
 

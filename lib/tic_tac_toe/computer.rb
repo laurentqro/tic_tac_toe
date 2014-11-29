@@ -68,6 +68,8 @@ module TicTacToe
         return board.corners.grep(Fixnum).first
       end
 
+      board.available_moves.first
+
  		end
 
     private
