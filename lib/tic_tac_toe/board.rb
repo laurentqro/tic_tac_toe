@@ -26,6 +26,10 @@ module TicTacToe
       rows + columns + diagonals
     end
 
+    def corners
+      [grid[0], grid[2], grid[6], grid[8]]
+    end
+
     private
 
     def rows

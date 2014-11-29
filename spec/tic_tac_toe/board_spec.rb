@@ -60,5 +60,12 @@ describe TicTacToe::Board do
     end
   end
 
+  describe "#corners" do
+    it "returns the corners of the board" do
+      board = TicTacToe::Board.new [1, 2, 3, 4, 5, 6, 7, 8, 9]
+      expect(board.corners).to eql [1, 3, 7, 9]
+    end
+  end
+
 end
 
