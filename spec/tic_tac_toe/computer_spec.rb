@@ -31,9 +31,7 @@ describe TicTacToe::Computer do
   describe "#space_to_fork" do
     it "finds a space that creates two threats to win" do
       computer = TicTacToe::Computer.new(mark: "X")
-      board = TicTacToe::Board.new ["X", "O",  3,
-                                     4 , "X",  6,
-                                     7 ,  8 , "O"]
+      board = TicTacToe::Board.new ["X", "O", 3, 4, "X", 6, 7, 8, "O"]
       expect(computer.space_to_fork("X", board)).to eql 4
       expect(computer.space_to_fork("O", board)).to eql nil
     end
@@ -43,9 +41,7 @@ describe TicTacToe::Computer do
     context "when it has two in a row" do
       it "places a third to get three in a row" do
         computer = TicTacToe::Computer.new(mark: "X")
-        board = TicTacToe::Board.new ["X", "O",  3,
-                                       4 , "X",  6,
-                                      "O",  8 ,  9]
+        board = TicTacToe::Board.new ["X", "O", 3, 4, "X", 6, "O", 8 , 9]
         best_move = computer.determine_best_move(board)
         expect(best_move).to eql 9
       end
@@ -54,9 +50,7 @@ describe TicTacToe::Computer do
     context "when the opponent has two in a row" do
       it "plays the third to block the opponent" do
         computer = TicTacToe::Computer.new(mark: "X")
-        board = TicTacToe::Board.new ["O", "O",  3,
-                                       4 , "X",  6,
-                                       7,  "X" , 9]
+        board = TicTacToe::Board.new ["O", "O", 3, 4, "X", 6, 7, "X", 9]
         best_move = computer.determine_best_move(board)
         expect(best_move).to eql 3
       end
@@ -65,9 +59,7 @@ describe TicTacToe::Computer do
     context "when it has two non-blocked lines of two" do
       it "creates a fork (two threats to win)" do
         computer = TicTacToe::Computer.new(mark: "X")
-        board = TicTacToe::Board.new ["X", "O",  3,
-                                       4 , "X",  6,
-                                       7,   8 , "O"]
+        board = TicTacToe::Board.new ["X", "O", 3, 4, "X", 6, 7, 8, "O"]
         best_move = computer.determine_best_move(board)
         expect(best_move).to eql 4
       end
@@ -110,35 +102,27 @@ describe TicTacToe::Computer do
         best_move = computer.determine_best_move(board)
         expect(best_move).to eql 5
       end
-    end
 
-    context "when the opponent is in a corner" do
-      it "plays the opposite corner" do
+      it "plays the opposite corner if the opponent is in a corner" do
         computer = TicTacToe::Computer.new(mark: "X")
         board = TicTacToe::Board.new ["O", 2, 3, 4, "X", 6, 7, 8, 9]
         best_move = computer.determine_best_move(board)
         expect(best_move).to eql 9
       end
-    end
 
-    context "when a corner is available" do
-      it "plays any of the available corners" do
+      it "plays any of the available corners if a corner is available" do
         computer = TicTacToe::Computer.new(mark: "X")
         board = TicTacToe::Board.new [1, 2, 3, 4, "O", 6, 7, 8, 9]
         best_move = computer.determine_best_move(board)
         expect(best_move).to eql 1
       end
-    end
 
-    context "when everything else is taken" do
-      it "plays any of the four available sides" do
+      it "plays any of the four available sides if everything else is taken" do
         computer = TicTacToe::Computer.new(mark: "X")
         board = TicTacToe::Board.new ["X", "O", "X", 4, "X", "O", "O", "X", "O"]
         best_move = computer.determine_best_move(board)
         expect(best_move).to eql 4
       end
     end
-
   end
-
 end
