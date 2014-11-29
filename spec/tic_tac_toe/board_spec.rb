@@ -69,11 +69,12 @@ describe TicTacToe::Board do
 
   describe "#opposite_corner" do
     it "returns the opposite corner" do
-      board = TicTacToe::Board.new [1, 2, 3, 4, 5, 6, 7, 8, 9]
-      expect(board.opposite_corner(1)).to eql 9
-      expect(board.opposite_corner(3)).to eql 7
-      expect(board.opposite_corner(7)).to eql 3
-      expect(board.opposite_corner(9)).to eql 1
+      board = TicTacToe::Board.new ["O", 2, 3, 4, 5, 6, 7, 8, 9]
+      expect(board.opposite_corner(0)).to eql 9
+      expect(board.opposite_corner(2)).to eql 7
+      expect(board.opposite_corner(6)).to eql 3
+      expect(board.opposite_corner(8)).to eql "O"
+      expect(board.opposite_corner(1)).to eql nil
     end
   end
 

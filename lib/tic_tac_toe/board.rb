@@ -30,14 +30,14 @@ module TicTacToe
       grid.values_at(0, 2, 6, 8)
     end
 
-    def opposite_corner(corner_space)
+    def opposite_corner(space_index)
       opposite_corner = {
-        1 => grid[8],
-        3 => grid[6],
-        7 => grid[2],
-        9 => grid[0]
+        0 => grid[8],
+        2 => grid[6],
+        6 => grid[2],
+        8 => grid[0]
       }
-      opposite_corner[corner_space]
+      opposite_corner[space_index]
     end
 
     private
