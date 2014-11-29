@@ -27,7 +27,7 @@ module TicTacToe
     end
 
     def corners
-      [grid[0], grid[2], grid[6], grid[8]]
+      grid.values_at(0, 2, 6, 8)
     end
 
     def opposite_corner(corner_space)
