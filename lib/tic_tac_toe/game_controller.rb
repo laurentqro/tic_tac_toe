@@ -9,5 +9,9 @@ module TicTacToe
     def display_game_title
       display.game_title
     end
+
+    def display_choice_of_mark
+      display.choice_of_mark
+    end
   end
 end
