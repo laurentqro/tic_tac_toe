@@ -1,12 +1,12 @@
 module TicTacToe
-  class Game
+  class GameController
     attr_reader :display
 
     def initialize(display: display)
       @display = display
     end
 
-    def start
+    def display_game_title
       display.game_title
     end
   end
