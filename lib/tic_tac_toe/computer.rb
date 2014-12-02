@@ -2,10 +2,6 @@ module TicTacToe
   class Computer
     attr_accessor :mark
 
-    def initialize(mark: mark)
-      @mark = mark
-    end
-
     def winning_space(mark, board)
     	if winning_triple = find_a_winning_triple(mark, board)
       	available_space_on_triple(winning_triple)
