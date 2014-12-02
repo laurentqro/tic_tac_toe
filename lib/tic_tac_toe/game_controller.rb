@@ -8,11 +8,11 @@ module TicTacToe
     end
 
     def display_game_title
-      display.game_title
+      display.output_game_title
     end
 
     def display_choice_of_mark
-      display.choice_of_mark
+      display.output_choice_of_mark
     end
 
     def set_human_mark_with(choice_of_mark)
@@ -21,7 +21,7 @@ module TicTacToe
 
     def display_board
       grid = game.board.grid[:grid]
-      display.board(grid)
+      display.output_board(grid)
     end
 
     private
