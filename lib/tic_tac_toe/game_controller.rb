@@ -24,6 +24,10 @@ module TicTacToe
       display.output_board(grid)
     end
 
+    def set_current_player_to(player)
+      game.current_player = player
+    end
+
     private
 
     def parse(choice_of_mark)

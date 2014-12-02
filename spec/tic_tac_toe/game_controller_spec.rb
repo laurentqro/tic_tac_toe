@@ -44,4 +44,12 @@ describe TicTacToe::GameController do
       expect(output.string).to eql " 1 | 2 | 3\n---+---+---\n 4 | X | 6\n---+---+---\n O | 8 | 9\n"
     end
   end
+
+  describe "#set_current_player" do
+    it "sets the active game's current player" do
+      controller = TicTacToe::GameController.new(display: display, game: game)
+      controller.set_current_player_to(:human)
+      expect(game.current_player).to eql :human
+    end
+  end
 end
