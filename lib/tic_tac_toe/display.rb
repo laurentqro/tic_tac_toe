@@ -19,7 +19,7 @@ module TicTacToe
     end
 
     def get_user_input
-      @input.gets.chomp
+      @input.gets.chomp.to_i
     end
   end
 end

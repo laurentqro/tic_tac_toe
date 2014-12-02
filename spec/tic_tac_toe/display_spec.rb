@@ -25,7 +25,7 @@ describe TicTacToe::Display do
       input = StringIO.new("1\n")
       output = StringIO.new
       display = TicTacToe::Display.new(input: input, output: output)
-      expect(display.get_user_input).to eql "1"
+      expect(display.get_user_input).to eql 1
     end
   end
 
