@@ -1,6 +1,7 @@
 require 'tic_tac_toe/game_controller'
 require 'tic_tac_toe/display'
 require 'tic_tac_toe/game'
+require 'tic_tac_toe/board'
 
 describe TicTacToe::GameController do
 
@@ -8,7 +9,8 @@ describe TicTacToe::GameController do
   let(:output) { StringIO.new }
   let(:display) { TicTacToe::Display.new(input: input, output: output) }
   let(:controller) { TicTacToe::GameController.new(display: display) }
-  let(:game) { TicTacToe::Game.new }
+  let(:board) { TicTacToe::Board.new(grid: [1, 2, 3, 4, 5, 6, 7, 8, 9]) }
+  let(:game) { TicTacToe::Game.new(board: board) }
 
   describe "#display_game_title" do
     it "displays game title" do
@@ -30,6 +32,16 @@ describe TicTacToe::GameController do
       controller = TicTacToe::GameController.new(display: display, game: game)
       controller.set_human_mark_with(input.string)
       expect(controller.game.human_mark).to eql "X"
+    end
+  end
+
+  describe "#display_board" do
+    it "displays the current game's board" do
+      board = TicTacToe::Board.new(grid: [1, 2, 3, 4, "X", 6, "O", 8, 9])
+      game = TicTacToe::Game.new(board: board)
+      controller = TicTacToe::GameController.new(display: display, game: game)
+      controller.display_board
+      expect(output.string).to eql " 1 | 2 | 3\n---+---+---\n 4 | X | 6\n---+---+---\n O | 8 | 9\n"
     end
   end
 end

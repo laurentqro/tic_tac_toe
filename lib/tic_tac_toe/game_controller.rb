@@ -19,6 +19,11 @@ module TicTacToe
       game.human_mark = parse(choice_of_mark)
     end
 
+    def display_board
+      grid = game.board.grid[:grid]
+      display.board(grid)
+    end
+
     private
 
     def parse(choice_of_mark)
