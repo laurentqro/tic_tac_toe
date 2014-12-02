@@ -39,7 +39,7 @@ describe TicTacToe::GameController do
   describe "#display_board" do
     it "displays the current game's board" do
       board = TicTacToe::Board.new([1, 2, 3, 4, "X", 6, "O", 8, 9])
-      game = TicTacToe::Game.new(board: board)
+      game = TicTacToe::Game.new(board: board, computer: computer)
       controller = TicTacToe::GameController.new(display: display, game: game)
       controller.display_board
       expect(output.string).to eql " 1 | 2 | 3\n---+---+---\n 4 | X | 6\n---+---+---\n O | 8 | 9\n"
@@ -48,7 +48,6 @@ describe TicTacToe::GameController do
 
   describe "#set_current_player_to" do
     it "sets the active game's current player" do
-      controller = TicTacToe::GameController.new(display: display, game: game)
       controller.set_current_player_to(:human)
       expect(controller.current_player).to eql :human
     end

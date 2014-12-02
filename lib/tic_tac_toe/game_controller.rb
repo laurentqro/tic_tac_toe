@@ -16,7 +16,7 @@ module TicTacToe
       #  initialize_game: game = TicTacToe::Game.new(computer: computer, board: board)
       #  set_current_player_to(:human)
 
-      # until game_over? do
+      # until game.is_over? do
         #  make_move
         #  check_for_win
         #  check_for_draw

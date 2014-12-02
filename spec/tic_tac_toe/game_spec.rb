@@ -31,4 +31,20 @@ describe TicTacToe::Game do
       expect(game.is_draw?).to eql false
     end
   end
+
+  describe "#is_over?" do
+    it "returns true if game is won" do
+      board = TicTacToe::Board.new(["X", "O", "X", "O", "X", "O", "O", 8, "X"])
+      game = TicTacToe::Game.new(board: board)
+      expect(game.is_won?).to eql true
+      expect(game.is_over?).to eql true
+    end
+
+    it "returns true if game is draw" do
+      board = TicTacToe::Board.new(["X", "O", "X", "O", "X", "O", "X", "O", "X"])
+      game = TicTacToe::Game.new(board: board)
+      expect(game.is_draw?).to eql true
+      expect(game.is_over?).to eql true
+    end
+  end
 end
