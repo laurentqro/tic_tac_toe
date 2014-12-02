@@ -6,5 +6,13 @@ module TicTacToe
       @board = board
       @computer = computer
     end
+
+    def is_won?
+      board.winner?
+    end
+
+    def is_draw?
+      board.draw?
+    end
   end
 end
