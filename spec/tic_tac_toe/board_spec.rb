@@ -78,5 +78,17 @@ describe TicTacToe::Board do
     end
   end
 
+  describe "#is_valid_move?" do
+    it "returns true if the chosen space is a valid move" do
+      board = TicTacToe::Board.new ["O", 2, 3, 4, 5, 6, 7, 8, 9]
+      expect(board.is_valid_move?(2)).to eql true
+    end
+
+    it "returns false if the chosen space is an invalid move" do
+      board = TicTacToe::Board.new ["O", 2, 3, 4, 5, 6, 7, 8, 9]
+      expect(board.is_valid_move?(1)).to eql false
+    end
+  end
+
 end
 

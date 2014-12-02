@@ -40,6 +40,10 @@ module TicTacToe
       opposite_corner[space_index]
     end
 
+    def is_valid_move?(space)
+      available_moves.include?(space)
+    end
+
     private
 
     def rows
