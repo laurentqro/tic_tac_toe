@@ -8,9 +8,10 @@ describe TicTacToe::GameController do
   let(:input) { StringIO.new }
   let(:output) { StringIO.new }
   let(:display) { TicTacToe::Display.new(input: input, output: output) }
-  let(:controller) { TicTacToe::GameController.new(display: display) }
-  let(:board) { TicTacToe::Board.new(grid: [1, 2, 3, 4, 5, 6, 7, 8, 9]) }
-  let(:game) { TicTacToe::Game.new(board: board) }
+  let(:board) { TicTacToe::Board.new([1, 2, 3, 4, 5, 6, 7, 8, 9]) }
+  let(:computer) { TicTacToe::Computer.new }
+  let(:game) { TicTacToe::Game.new(board: board, computer: computer) }
+  let(:controller) { TicTacToe::GameController.new(display: display, game: game) }
 
   describe "#display_game_title" do
     it "displays game title" do
@@ -31,13 +32,13 @@ describe TicTacToe::GameController do
       controller = TicTacToe::GameController.new(display: display, game: game)
       allow(display).to receive(:get_user_input) { "1\n" }
       controller.set_human_mark
-      expect(controller.game.human_mark).to eql "X"
+      expect(controller.human_mark).to eql "X"
     end
   end
 
   describe "#display_board" do
     it "displays the current game's board" do
-      board = TicTacToe::Board.new(grid: [1, 2, 3, 4, "X", 6, "O", 8, 9])
+      board = TicTacToe::Board.new([1, 2, 3, 4, "X", 6, "O", 8, 9])
       game = TicTacToe::Game.new(board: board)
       controller = TicTacToe::GameController.new(display: display, game: game)
       controller.display_board
@@ -45,11 +46,29 @@ describe TicTacToe::GameController do
     end
   end
 
-  describe "#set_current_player" do
+  describe "#set_current_player_to" do
     it "sets the active game's current player" do
       controller = TicTacToe::GameController.new(display: display, game: game)
       controller.set_current_player_to(:human)
-      expect(game.current_player).to eql :human
+      expect(controller.current_player).to eql :human
+    end
+  end
+
+  describe "#set_computer_mark" do
+    it "sets the computer's mark depending on human player's choice" do
+      allow(controller).to receive(:human_mark) { "X" }
+      controller.set_computer_mark
+      expect(computer.mark).to eql "O"
+    end
+  end
+
+  describe "#make_move" do
+    it "tells the current player to make his move" do
+      allow(controller).to receive(:human_mark) { "X" }
+      allow(controller).to receive(:current_player) { :human }
+      allow(display).to receive(:get_user_input) { 1 }
+      controller.make_move
+      expect(game.board.grid).to eql ["X", 2, 3, 4, 5, 6, 7, 8, 9]
     end
   end
 end

@@ -1,9 +1,10 @@
 module TicTacToe
   class Game
-    attr_accessor :human_mark, :board, :current_player
+    attr_reader :board, :computer
 
-    def initialize(board: board)
+    def initialize(board: board, computer: computer)
       @board = board
+      @computer = computer
     end
   end
 end
