@@ -7,11 +7,11 @@ module TicTacToe
     end
 
     def mark_space(space, mark)
-      @grid[space - 1] = mark
+      grid[space - 1] = mark
     end
 
     def available_moves
-     @grid.grep(Integer)
+     grid.grep(Integer)
     end
 
     def winner?
