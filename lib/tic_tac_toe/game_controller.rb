@@ -7,6 +7,20 @@ module TicTacToe
       @game = game
     end
 
+    # def start
+      #  display_game_title
+      #  display_choice_of_mark
+      #  set_human_mark
+      #  set_current_player_to(:human)
+
+      # until game_over? do
+        #  current_player.make_move
+        #  check_for_win
+        #  check_for_draw
+        #  next_player
+      # end
+    # end
+
     def display_game_title
       display.output_game_title
     end
@@ -15,7 +29,8 @@ module TicTacToe
       display.output_choice_of_mark
     end
 
-    def set_human_mark_with(choice_of_mark)
+    def set_human_mark
+      choice_of_mark = display.get_user_input
       game.human_mark = parse(choice_of_mark)
     end
 

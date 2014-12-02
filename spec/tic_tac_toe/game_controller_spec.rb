@@ -28,9 +28,9 @@ describe TicTacToe::GameController do
 
   describe "#set_human_mark" do
     it "sets human mark" do
-      input = StringIO.new("1\n")
       controller = TicTacToe::GameController.new(display: display, game: game)
-      controller.set_human_mark_with(input.string)
+      allow(display).to receive(:get_user_input) { "1\n" }
+      controller.set_human_mark
       expect(controller.game.human_mark).to eql "X"
     end
   end
