@@ -26,7 +26,8 @@ describe TicTacToe::Computer do
       computer = TicTacToe::Computer.new
       computer.mark = "X"
       board = TicTacToe::Board.new [1, 2, 3, 4, 5, 6, 7, 8, 9]
-      computer.make_move(3, board)
+      allow(computer).to receive(:determine_best_move) { 3 }
+      computer.make_move(board)
       expect(board.grid).to eql [1, 2, "X", 4, 5, 6, 7, 8, 9]
     end
   end
@@ -85,8 +86,7 @@ describe TicTacToe::Computer do
         computer = TicTacToe::Computer.new
         computer.mark = "X"
         board = TicTacToe::Board.new ["O", "X", 3, 4, "O", 6, 7, 8, "X"]
-        best_move = computer.determine_best_move(board)
-        computer.make_move(best_move, board)
+        computer.make_move(board)
         expect(computer.space_to_fork("O", board)).to be_nil
       end
 
@@ -95,8 +95,7 @@ describe TicTacToe::Computer do
         computer.mark = "X"
         board = TicTacToe::Board.new ["O", "X", 3, 4, "O", 6, 7, 8, "X"]
         expect(computer.space_to_fork("O", board)).not_to be_nil
-        best_move = computer.determine_best_move(board)
-        computer.make_move(best_move, board)
+        computer.make_move(board)
         expect(computer.space_to_fork("O", board)).to be_nil
       end
     end

@@ -16,8 +16,9 @@ module TicTacToe
       winning_space(opponent_mark, board)
     end
 
-    def make_move(space, board)
-      board.mark_space(space, self.mark)
+    def make_move(board)
+      space = determine_best_move(board)
+      board.mark_space(space, mark)
     end
 
     def space_to_fork(mark, board)
@@ -29,7 +30,7 @@ module TicTacToe
     end
 
  		def determine_best_move(board)
- 			if winning_space?(self.mark, board)
+ 			if winning_space?(mark, board)
 				best_move = winning_space(self.mark, board)
         return best_move
 			end
@@ -39,12 +40,12 @@ module TicTacToe
         return best_move
 			end
 
-      if space_to_fork(self.mark, board)
-        best_move = space_to_fork(self.mark, board)
+      if space_to_fork(mark, board)
+        best_move = space_to_fork(mark, board)
         return best_move
       end
 
-      if space_to_fork(opponent_mark, board) && triples_with_only_one_mark(self.mark, board)
+      if space_to_fork(opponent_mark, board) && triples_with_only_one_mark(mark, board)
         attacking_moves = spaces_on_triples_with_only_one_mark(mark, board)
         best_moves = attacking_moves.reject { |move| results_in_opponent_fork?(move, board) }
         return best_moves.first

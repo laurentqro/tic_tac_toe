@@ -55,8 +55,7 @@ module TicTacToe
         space = display.get_user_input
         game.board.mark_space(space, human_mark)
       else
-        space = game.computer.determine_best_move(game.board)
-        game.board.mark_space(space, game.computer.mark)
+        game.computer.make_move(game.board)
       end
     end
 
