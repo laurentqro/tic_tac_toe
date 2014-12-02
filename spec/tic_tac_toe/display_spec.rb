@@ -19,4 +19,14 @@ describe TicTacToe::Display do
       expect(output.string).to eql "Choose your mark:\n1: X\n 2: O\n"
     end
   end
+
+  describe "#get_user_input" do
+    it "asks human player for input" do
+      input = StringIO.new("1\n")
+      output = StringIO.new
+      display = TicTacToe::Display.new(input: input, output: output)
+      expect(display.get_user_input).to eql "1"
+    end
+  end
+
 end
