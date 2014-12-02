@@ -59,6 +59,11 @@ module TicTacToe
       end
     end
 
+    def next_player
+      player = current_player == :human ? :computer : :human
+      set_current_player_to(player)
+    end
+
     private
 
     def parse(choice_of_mark)

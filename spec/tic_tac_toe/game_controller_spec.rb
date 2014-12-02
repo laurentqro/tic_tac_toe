@@ -70,4 +70,12 @@ describe TicTacToe::GameController do
       expect(game.board.grid).to eql ["X", 2, 3, 4, 5, 6, 7, 8, 9]
     end
   end
+
+  describe "#next_player" do
+    it "sets the current player to the next player" do
+      controller.set_current_player_to(:human)
+      controller.next_player
+      expect(controller.current_player).to eql :computer
+    end
+  end
 end
