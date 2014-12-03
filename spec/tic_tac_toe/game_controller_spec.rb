@@ -28,11 +28,22 @@ describe TicTacToe::GameController do
   end
 
   describe "#set_human_mark" do
-    it "sets human mark" do
-      controller = TicTacToe::GameController.new(display: display, game: game)
-      allow(display).to receive(:get_user_input) { "1\n" }
-      controller.set_human_mark
-      expect(controller.human_mark).to eql "X"
+    context "when 1" do
+      it "sets human mark to X" do
+        controller = TicTacToe::GameController.new(display: display, game: game)
+        allow(display).to receive(:get_user_input) { "1\n" }
+        controller.set_human_mark
+        expect(controller.human_mark).to eql "X"
+      end
+    end
+
+    context "when 2" do
+      it "sets human mark to O" do
+        controller = TicTacToe::GameController.new(display: display, game: game)
+        allow(display).to receive(:get_user_input) { "2\n" }
+        controller.set_human_mark
+        expect(controller.human_mark).to eql "O"
+      end
     end
   end
 
