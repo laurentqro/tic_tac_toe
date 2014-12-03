@@ -78,4 +78,11 @@ describe TicTacToe::GameController do
       expect(controller.current_player).to eql :computer
     end
   end
+
+  describe "#prompt_for_move" do
+    it "prompts the user to enter his move" do
+      controller.prompt_for_move
+      expect(output.string).to eql "Please enter the number of a space to mark it:\n"
+    end
+  end
 end

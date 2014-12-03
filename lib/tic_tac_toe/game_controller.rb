@@ -8,20 +8,20 @@ module TicTacToe
     end
 
     # def start
-      #  display_game_title
-      #  display_choice_of_mark
-      #  set_human_mark
-      #  initialize board: TicTacToe::Board.new([1,2,3,4,5,6,7,8,9])
-      #  initialize_computer_player: computer = TicTacToe::Computer.new(mark: computer_mark)
-      #  initialize_game: game = TicTacToe::Game.new(computer: computer, board: board)
-      #  set_current_player_to(:human)
+    #    display_game_title
+    #    display_choice_of_mark
+    #    set_human_mark
+    #    set_computer_mark
+    #    set_current_player_to(:human)
+    #    display_board
 
-      # until game.is_over? do
-        #  make_move
-        #  check_for_win
-        #  check_for_draw
-        #  next_player
-      # end
+    #   until game.is_over? do
+    #      make_move
+    #      check_for_win
+    #      check_for_draw
+    #      display_board
+    #      next_player
+    #   end
     # end
 
     def display_game_title
@@ -62,6 +62,10 @@ module TicTacToe
     def next_player
       player = current_player == :human ? :computer : :human
       set_current_player_to(player)
+    end
+
+    def prompt_for_move
+      display.output_prompt_for_move
     end
 
     private

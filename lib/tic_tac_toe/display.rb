@@ -21,5 +21,9 @@ module TicTacToe
     def get_user_input
       @input.gets.chomp.to_i
     end
+
+    def output_prompt_for_move
+      @output.puts "Please enter the number of a space to mark it:"
+    end
   end
 end
