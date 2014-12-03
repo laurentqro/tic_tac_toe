@@ -7,6 +7,7 @@ module TicTacToe
     end
 
     def mark_space(space, mark)
+      raise "Invalid move" if is_invalid_move?(space)
       grid[space - 1] = mark
     end
 
@@ -42,6 +43,10 @@ module TicTacToe
 
     def is_valid_move?(space)
       available_moves.include?(space)
+    end
+
+    def is_invalid_move?(space)
+      !available_moves.include?(space)
     end
 
     private

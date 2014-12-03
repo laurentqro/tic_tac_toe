@@ -13,6 +13,11 @@ describe TicTacToe::Board do
       board.mark_space(1, mark)
       expect(board.grid).to eql [mark, 2,3,4,5,6,7,8,9]
     end
+
+    it "raises an 'Invalid move' error if unavailable space is marked" do
+      board = TicTacToe::Board.new ["O", 2, 3, 4, 5, 6, 7, 8, 9]
+      expect { board.mark_space(1, "X") }.to raise_error("Invalid move")
+    end
   end
 
   describe "#available_moves" do
@@ -87,6 +92,18 @@ describe TicTacToe::Board do
     it "returns false if the chosen space is an invalid move" do
       board = TicTacToe::Board.new ["O", 2, 3, 4, 5, 6, 7, 8, 9]
       expect(board.is_valid_move?(1)).to eql false
+    end
+  end
+
+  describe "#is_invalid_move?" do
+    it "returns true if the chosen space is an invalid move" do
+      board = TicTacToe::Board.new ["O", 2, 3, 4, 5, 6, 7, 8, 9]
+      expect(board.is_invalid_move?(1)).to eql true
+    end
+
+    it "returns false if the chosen space is an invalid move" do
+      board = TicTacToe::Board.new ["O", 2, 3, 4, 5, 6, 7, 8, 9]
+      expect(board.is_invalid_move?(2)).to eql false
     end
   end
 
