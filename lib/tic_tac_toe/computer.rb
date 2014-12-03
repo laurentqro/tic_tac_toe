@@ -110,9 +110,13 @@ module TicTacToe
     end
 
     def results_in_opponent_fork?(move, board)
-      board_clone = board.clone
-      board_clone.mark_space(move, self.mark)
-      space_to_fork(opponent_mark, board_clone) != nil
+      fake_board = create_fake_board(board)
+      fake_board.mark_space(move, mark)
+      space_to_fork(opponent_mark, fake_board) != nil
+    end
+
+    def create_fake_board(board)
+      TicTacToe::FakeBoard.new(board.grid.dup)
     end
 
     def triples_with_only_one_mark(mark, board)
