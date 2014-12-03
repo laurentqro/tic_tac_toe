@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH << 'lib'
+require 'tic_tac_toe/computer'
+require 'tic_tac_toe/board'
+require 'tic_tac_toe/display'
+require 'tic_tac_toe/game'
+require 'tic_tac_toe/game_controller'
+
+board = TicTacToe::Board.new
+computer = TicTacToe::Computer.new
+game = TicTacToe::Game.new(computer: computer, board: board)
+display = TicTacToe::Display.new
+
+TicTacToe::GameController.new(game: game, display: display).start
