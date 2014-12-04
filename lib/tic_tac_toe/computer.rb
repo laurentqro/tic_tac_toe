@@ -1,6 +1,13 @@
+require "tic_tac_toe/fake_board"
+
 module TicTacToe
   class Computer
     attr_accessor :mark
+
+    def set_mark(board)
+      opponent_mark = board.grid.grep(String)[0]
+      @mark = opponent_mark == "X" ? "O" : "X"
+    end
 
     def winning_space(mark, board)
     	if winning_triple = find_a_winning_triple(mark, board)

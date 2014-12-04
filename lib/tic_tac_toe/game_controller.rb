@@ -11,17 +11,18 @@ module TicTacToe
     #    display_game_title
     #    display_choice_of_mark
     #    set_human_mark
-    #    set_computer_mark
     #    set_current_player_to(:human)
     #    display_board
+    #    prompt_for_move
 
     #   until game.is_over? do
     #      make_move
-    #      check_for_win
-    #      check_for_draw
     #      display_board
     #      next_player
+    #      prompt_for_move
     #   end
+    #   display_board
+    #   # display_game_outcome
     # end
 
     def display_game_title
@@ -38,7 +39,7 @@ module TicTacToe
     end
 
     def set_computer_mark
-      game.computer.mark = human_mark == "X" ? "O" : "X"
+      game.computer.set_mark(game.board)
     end
 
     def display_board

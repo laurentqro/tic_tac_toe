@@ -1,7 +1,5 @@
 require 'tic_tac_toe/game_controller'
-require 'tic_tac_toe/display'
 require 'tic_tac_toe/game'
-require 'tic_tac_toe/board'
 
 describe TicTacToe::GameController do
 
@@ -66,7 +64,9 @@ describe TicTacToe::GameController do
 
   describe "#set_computer_mark" do
     it "sets the computer's mark depending on human player's choice" do
-      allow(controller).to receive(:human_mark) { "X" }
+      board = TicTacToe::Board.new([1, 2, 3, 4, "X", 6, 7, 8, 9])
+      game = TicTacToe::Game.new(board: board, computer: computer)
+      controller = TicTacToe::GameController.new(display: display, game: game)
       controller.set_computer_mark
       expect(computer.mark).to eql "O"
     end
