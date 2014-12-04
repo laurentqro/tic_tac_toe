@@ -124,19 +124,5 @@ describe TicTacToe::Computer do
         expect(best_move).to eql 4
       end
     end
-
-    describe "#set_mark" do
-      it "sets mark to X if other player picked O" do
-        board = TicTacToe::Board.new [1, 2, 3, 4, "O", 6, 7, 8, 9]
-        computer.set_mark(board)
-        expect(computer.mark).to eql "X"
-      end
-
-      it "sets mark to O if other player picked X" do
-        board = TicTacToe::Board.new [1, 2, 3, 4, "X", 6, 7, 8, 9]
-        computer.set_mark(board)
-        expect(computer.mark).to eql "O"
-      end
-    end
   end
 end

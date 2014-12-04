@@ -25,23 +25,19 @@ describe TicTacToe::GameController do
     end
   end
 
-  describe "#set_human_mark" do
-    context "when 1" do
-      it "sets human mark to X" do
-        controller = TicTacToe::GameController.new(display: display, game: game)
-        allow(display).to receive(:get_user_input) { "1\n" }
-        controller.set_human_mark
-        expect(controller.human_mark).to eql "X"
-      end
+  describe "#set_players_marks" do
+    it "sets computer mark to O if human picked X" do
+      allow(display).to receive(:get_user_input) { 1 }
+      controller.set_players_marks
+      expect(controller.human_mark).to eql "X"
+      expect(computer.mark).to eql "O"
     end
 
-    context "when 2" do
-      it "sets human mark to O" do
-        controller = TicTacToe::GameController.new(display: display, game: game)
-        allow(display).to receive(:get_user_input) { "2\n" }
-        controller.set_human_mark
-        expect(controller.human_mark).to eql "O"
-      end
+    it "sets computer mark to X if human picked O" do
+      allow(display).to receive(:get_user_input) { 2 }
+      controller.set_players_marks
+      expect(controller.human_mark).to eql "O"
+      expect(computer.mark).to eql "X"
     end
   end
 
@@ -59,16 +55,6 @@ describe TicTacToe::GameController do
     it "sets the active game's current player" do
       controller.set_current_player_to(:human)
       expect(controller.current_player).to eql :human
-    end
-  end
-
-  describe "#set_computer_mark" do
-    it "sets the computer's mark depending on human player's choice" do
-      board = TicTacToe::Board.new([1, 2, 3, 4, "X", 6, 7, 8, 9])
-      game = TicTacToe::Game.new(board: board, computer: computer)
-      controller = TicTacToe::GameController.new(display: display, game: game)
-      controller.set_computer_mark
-      expect(computer.mark).to eql "O"
     end
   end
 

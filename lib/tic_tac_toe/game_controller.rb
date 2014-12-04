@@ -7,23 +7,23 @@ module TicTacToe
       @game = game
     end
 
-    # def start
-    #    display_game_title
-    #    display_choice_of_mark
-    #    set_human_mark
-    #    set_current_player_to(:human)
-    #    display_board
-    #    prompt_for_move
+    def start
+       display_game_title
+       display_choice_of_mark
+       set_players_marks
+       set_current_player_to(:human)
+       display_board
+       prompt_for_move
 
-    #   until game.is_over? do
-    #      make_move
-    #      display_board
-    #      next_player
-    #      prompt_for_move
-    #   end
-    #   display_board
-    #   # display_game_outcome
-    # end
+      until game.is_over? do
+         make_move
+         display_board
+         next_player
+         prompt_for_move
+      end
+      display_board
+      # display_game_outcome
+    end
 
     def display_game_title
       display.output_game_title
@@ -33,13 +33,9 @@ module TicTacToe
       display.output_choice_of_mark
     end
 
-    def set_human_mark
-      choice_of_mark = display.get_user_input
-      @human_mark = parse(choice_of_mark)
-    end
-
-    def set_computer_mark
-      game.computer.set_mark(game.board)
+    def set_players_marks
+      set_human_mark
+      set_computer_mark
     end
 
     def display_board
@@ -72,7 +68,16 @@ module TicTacToe
     private
 
     def parse(choice_of_mark)
-      choice_of_mark == "1\n" ? "X" : "O"
+      choice_of_mark == 1 ? "X" : "O"
+    end
+
+    def set_computer_mark
+      game.computer.mark = @human_mark == "X" ? "O" : "X"
+    end
+
+    def set_human_mark
+      choice_of_mark = display.get_user_input
+      @human_mark = parse(choice_of_mark)
     end
 
   end
