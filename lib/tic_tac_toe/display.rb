@@ -11,7 +11,9 @@ module TicTacToe
     end
 
     def output_choice_of_mark
-      @output.puts "Choose your mark:\n1: X\n 2: O"
+      @output.puts "Choose your mark:"
+      @output.puts "\s1: X"
+      @output.puts "\s2: O"
     end
 
     def output_board(grid)

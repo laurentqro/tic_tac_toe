@@ -21,7 +21,7 @@ describe TicTacToe::GameController do
   describe "#display_choice_of_mark" do
     it "tells the human player to choose X or O mark" do
       controller.display_choice_of_mark
-      expect(output.string).to eql "Choose your mark:\n1: X\n 2: O\n"
+      expect(output.string).to eql "Choose your mark:\n\s1: X\n\s2: O\n"
     end
   end
 

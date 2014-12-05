@@ -14,12 +14,15 @@ module TicTacToe
       display_choice_of_mark
       set_players_marks
       set_current_player_to(:human)
+      insert_line_space
       display_board
+      insert_line_space
       prompt_for_move
       make_move
 
       until game.is_over? do
         next_player
+        prompt_for_move
         make_move
         clear_screen
         display_game_title
