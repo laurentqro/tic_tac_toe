@@ -44,8 +44,11 @@ module TicTacToe
         return space_to_fork(mark, board)
       end
 
-      if space_to_fork(opponent_mark, board)
-        return space_to_fork(opponent_mark, board)
+      if triples_with_only_one_mark(mark, board).any? && space_to_fork(opponent_mark, board)
+        attacking_moves  = spaces_on_triples_with_only_one_mark(mark, board).reject do |space|
+          results_in_space_to_fork?(space, board)
+        end
+        return attacking_moves.first || space_to_fork(opponent_mark, board)
       end
 
       if board.available_moves.include? 5
@@ -87,12 +90,12 @@ module TicTacToe
       @mark == "X" ? "O" : "X"
     end
 
-    def only_one_mark_on_triple?(mark, triple)
-      triple.grep(mark).count == 1
-    end
-
-    def two_spaces_available_on_triple?(triple)
-      triple.grep(Fixnum).count == 2
+    def results_in_space_to_fork?(move, board)
+      board.available_moves.any? do |space|
+        fake_board = create_fake_board(board)
+        fake_board.mark_space(space, mark)
+        space_to_fork(opponent_mark, fake_board) == nil
+      end
     end
 
     def find_duplicate_in(spaces)
@@ -110,7 +113,9 @@ module TicTacToe
     end
 
     def triples_with_only_one_mark(mark, board)
-      board.triples.select { |triple| only_one_mark_on_triple?(mark, triple) }
+      board.triples.select do |triple|
+        triple.grep(Fixnum).count == 2 && triple.grep(mark).count == 1
+      end
     end
 
     def spaces_on_triples_with_only_one_mark(mark, board)
@@ -122,6 +127,5 @@ module TicTacToe
         return board.opposite_corner(index) if space == opponent_mark && board.opposite_corner(index).is_a?(Fixnum)
       end
     end
-
   end
 end

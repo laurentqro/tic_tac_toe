@@ -61,11 +61,21 @@ module TicTacToe
 
     def make_move
       if current_player == :human
-        space = display.get_user_input
+        space = get_valid_move
         game.board.mark_space(space, human_mark)
       else
         game.computer.make_move(game.board)
       end
+    end
+
+    def get_valid_move
+      chosen_space = display.get_user_input
+      until game.board.is_valid_move?(chosen_space)
+        display_invalid_move_message
+        prompt_for_move
+        chosen_space = display.get_user_input
+      end
+      chosen_space
     end
 
     def next_player
@@ -97,6 +107,10 @@ module TicTacToe
       if game.is_draw?
         display.output_draw_announcement
       end
+    end
+
+    def display_invalid_move_message
+      display.output_invalid_move_message
     end
 
     private

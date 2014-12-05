@@ -47,5 +47,9 @@ module TicTacToe
     def output_draw_announcement
       @output.puts "Draw!"
     end
+
+    def output_invalid_move_message
+      @output.print "You entered an invalid move.\s"
+    end
   end
 end

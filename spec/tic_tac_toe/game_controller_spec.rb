@@ -135,4 +135,16 @@ describe TicTacToe::GameController do
       end
     end
   end
+
+  describe "#get_valid_move" do
+    it "asks player for move until he enters a valid move" do
+      board = TicTacToe::Board.new(["O", 2, 3, 4, "O", 6, "X", "X", "O"])
+      game = TicTacToe::Game.new(board: board, computer: computer)
+      controller = TicTacToe::GameController.new(display: display, game: game)
+      allow(controller).to receive(:current_player) { :human_mark }
+      allow(controller).to receive(:human_mark) { "X" }
+      allow(display).to receive(:get_user_input) { [2, 3, 4, 6].sample }
+      expect([2, 3, 4, 6]).to include controller.get_valid_move
+    end
+  end
 end

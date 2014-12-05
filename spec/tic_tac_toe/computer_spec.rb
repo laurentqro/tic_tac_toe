@@ -65,7 +65,7 @@ describe TicTacToe::Computer do
     end
 
     context "when opponent has the opportunity to create a fork" do
-      it "creates two in a row to force the opponent into defending" do
+      it "creates two in a row to force the opponent into defending, without creating an opportunity for opponent to fork" do
         board = TicTacToe::Board.new [ "O", 2,   3,
                                         4, "X" , 6,
                                         7,  8 , "O"]

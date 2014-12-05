@@ -21,13 +21,17 @@
 
 The computer plays a perfect game of Tic-tac-toe (i.e. win or, at best, draw) by choosing the first available move from the following list:
 
-* **Win**: If it has two in a row, place a third to get three in a row.
+* **Win**: If it has two in a row, it places a third to get three in a row.
 
 * **Block**: If the opponent has two in a row, it plays the third space itself to block the opponent.
 
-* **Fork**: It creates an opportunity where the it has two threats to win (two non-blocked lines of two).
+* **Fork**: It creates an opportunity where it has two threats to win (two non-blocked lines of two).
 
-* **Block opponent's fork**: If there is a configuration where the opponent can fork, it blocks that fork.
+* **Block opponent's fork**: If there is a configuration where the opponent can fork, it blocks that fork, choosing the first available move from the following two options:
+
+    * **option 1**:  it creates two in a row to force the opponent into defending, as long as it does not result in creating a fork for the opponent.
+
+    * **option 2**: if the opponent can fork, it blocks that fork.
 
 * **Center**: It marks the center.
 
