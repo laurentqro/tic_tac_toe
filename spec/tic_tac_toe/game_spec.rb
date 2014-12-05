@@ -1,7 +1,3 @@
-require 'tic_tac_toe/board'
-require 'tic_tac_toe/computer'
-require 'tic_tac_toe/game'
-
 describe TicTacToe::Game do
 
   let(:board) { TicTacToe::Board.new([1, 2, 3, 4, 5, 6, 7, 8, 9]) }
