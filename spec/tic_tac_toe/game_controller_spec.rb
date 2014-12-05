@@ -82,4 +82,18 @@ describe TicTacToe::GameController do
       expect(output.string).to eql "Please enter the number of a space to mark it:\n"
     end
   end
+
+  describe "#clear_screen" do
+    it "tells the display to clear the screen" do
+      controller.clear_screen
+      expect(output.string).to eql "\e[2J\e[f\n"
+    end
+  end
+
+  describe "#insert_line_space" do
+    it "tells the display to insert line space" do
+      controller.insert_line_space
+      expect(output.string).to eql "\s\n"
+    end
+  end
 end

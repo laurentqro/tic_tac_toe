@@ -8,19 +8,25 @@ module TicTacToe
     end
 
     def start
-       display_game_title
-       display_choice_of_mark
-       set_players_marks
-       set_current_player_to(:human)
-       display_board
-       prompt_for_move
+      clear_screen
+      display_game_title
+      insert_line_space
+      display_choice_of_mark
+      set_players_marks
+      set_current_player_to(:human)
+      display_board
 
       until game.is_over? do
-         make_move
-         display_board
-         next_player
-         prompt_for_move
+        prompt_for_move
+        make_move
+        clear_screen
+        display_game_title
+        insert_line_space
+        display_board
+        insert_line_space
+        next_player
       end
+      clear_screen
       display_board
       # display_game_outcome
     end
@@ -63,6 +69,14 @@ module TicTacToe
 
     def prompt_for_move
       display.output_prompt_for_move
+    end
+
+    def clear_screen
+      display.clear_screen
+    end
+
+    def insert_line_space
+      display.output_line_space
     end
 
     private
