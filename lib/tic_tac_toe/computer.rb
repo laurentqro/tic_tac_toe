@@ -31,14 +31,14 @@ module TicTacToe
       end
     end
 
- 		def determine_best_move(board)
- 			if winning_spaces(mark, board).any?
-				return winning_space(mark, board)
-			end
+    def determine_best_move(board)
+      if winning_spaces(mark, board).any?
+        return winning_space(mark, board)
+      end
 
-			if winning_spaces(opponent_mark, board).any?
+      if winning_spaces(opponent_mark, board).any?
         return winning_space(opponent_mark, board)
-			end
+      end
 
       if space_to_fork(mark, board)
         return space_to_fork(mark, board)
@@ -66,7 +66,7 @@ module TicTacToe
       if board.available_moves.any?
         return board.available_moves.first
       end
- 		end
+    end
 
     private
 
@@ -103,7 +103,7 @@ module TicTacToe
     end
 
     def winning_triples(mark, board)
-    	board.triples.select do
+      board.triples.select do
         |triple| winning_space_on_triple?(mark, triple)
       end
     end
