@@ -33,5 +33,17 @@ module TicTacToe
     def output_line_space
       @output.puts "\s"
     end
+
+    def output_win_announcement
+      @output.puts "Congratulations, you won!"
+    end
+
+    def output_loss_announcement
+      @output.puts "Oh no, you lost!"
+    end
+
+    def output_draw_announcement
+      @output.puts "Draw!"
+    end
   end
 end

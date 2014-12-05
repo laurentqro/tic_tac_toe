@@ -15,20 +15,23 @@ module TicTacToe
       set_players_marks
       set_current_player_to(:human)
       display_board
+      prompt_for_move
+      make_move
 
       until game.is_over? do
-        prompt_for_move
+        next_player
         make_move
         clear_screen
         display_game_title
         insert_line_space
         display_board
         insert_line_space
-        next_player
       end
+
       clear_screen
       display_board
-      # display_game_outcome
+      insert_line_space
+      display_game_outcome
     end
 
     def display_game_title
@@ -79,6 +82,20 @@ module TicTacToe
       display.output_line_space
     end
 
+    def display_game_outcome
+      if game.is_won? && current_player == :human
+        display.output_win_announcement
+      end
+
+      if game.is_won? && current_player != :human
+        display.output_loss_announcement
+      end
+
+      if game.is_draw?
+        display.output_draw_announcement
+      end
+    end
+
     private
 
     def parse(choice_of_mark)
@@ -93,7 +110,5 @@ module TicTacToe
       choice_of_mark = display.get_user_input
       @human_mark = parse(choice_of_mark)
     end
-
   end
-
 end

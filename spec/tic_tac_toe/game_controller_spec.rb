@@ -96,4 +96,43 @@ describe TicTacToe::GameController do
       expect(output.string).to eql "\s\n"
     end
   end
+
+  describe "#display_game_outcome" do
+    context "when there is a winner" do
+      it "announces win if human player won" do
+        board = TicTacToe::Board.new(["X", 2, 3, 4, "X", 6, "O", "O", "X"])
+        game = TicTacToe::Game.new(board: board, computer: computer)
+        controller = TicTacToe::GameController.new(display: display, game: game)
+        allow(controller).to receive(:current_player) { :human }
+        allow(controller).to receive(:human_mark) { "X" }
+        expect(controller.game.is_won?).to eql true
+        controller.display_game_outcome
+        expect(output.string).to eql "Congratulations, you won!\n"
+      end
+
+      it "announces loss if human player lost" do
+        board = TicTacToe::Board.new(["O", 2, 3, 4, "O", 6, "X", "X", "O"])
+        game = TicTacToe::Game.new(board: board, computer: computer)
+        controller = TicTacToe::GameController.new(display: display, game: game)
+        allow(controller).to receive(:current_player) { :computer }
+        allow(controller).to receive(:human_mark) { "X" }
+        expect(controller.game.is_won?).to eql true
+        controller.display_game_outcome
+        expect(output.string).to eql "Oh no, you lost!\n"
+      end
+    end
+
+    context "when the game draws" do
+      it "announces draw" do
+        board = TicTacToe::Board.new(["X", "O", "X", "X", "O", "O", "O", "X", "X"])
+        game = TicTacToe::Game.new(board: board, computer: computer)
+        controller = TicTacToe::GameController.new(display: display, game: game)
+        allow(controller).to receive(:current_player) { :human }
+        allow(controller).to receive(:human_mark) { "X" }
+        expect(controller.game.is_draw?).to eql true
+        controller.display_game_outcome
+        expect(output.string).to eql "Draw!\n"
+      end
+    end
+  end
 end
