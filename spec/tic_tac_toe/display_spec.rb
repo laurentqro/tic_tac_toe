@@ -29,4 +29,18 @@ describe TicTacToe::Display do
     end
   end
 
+  describe "#clear_screen" do
+    it "clears the terminal screen" do
+      display.clear_screen
+      expect(output.string).to eql "\e[2J\e[f\n"
+    end
+  end
+
+  describe "#output_line_space" do
+    it "inserts a line space" do
+      display.output_line_space
+      expect(output.string).to eql "\s\n"
+    end
+  end
+
 end

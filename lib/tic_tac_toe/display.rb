@@ -25,5 +25,13 @@ module TicTacToe
     def output_prompt_for_move
       @output.puts "Please enter the number of a space to mark it:"
     end
+
+    def clear_screen
+      @output.puts "\e[2J\e[f"
+    end
+
+    def output_line_space
+      @output.puts "\s"
+    end
   end
 end
