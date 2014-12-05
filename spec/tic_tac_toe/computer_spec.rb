@@ -70,7 +70,13 @@ describe TicTacToe::Computer do
                                         4, "X" , 6,
                                         7,  8 , "O"]
         computer.make_move(board)
-        expect(computer.winning_spaces(computer.mark, board).any?).to eql true
+        expect(computer.winning_spaces(computer.mark, board).count).to eql 1
+      end
+
+      it "blocks opponent's fork" do
+        board = TicTacToe::Board.new ["O", 2, 3, 4, "X", "O", 7, 8, 9]
+        computer.make_move(board)
+        expect(computer.space_to_fork("O", board)).to be_nil
       end
     end
 
