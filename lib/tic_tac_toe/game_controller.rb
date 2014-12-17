@@ -1,6 +1,6 @@
 module TicTacToe
   class GameController
-    attr_reader :display, :game, :current_player, :human_mark
+    attr_reader :display, :game, :current_player
 
     def initialize(display: display, game: game)
       @display = display
@@ -45,9 +45,13 @@ module TicTacToe
       display.output_choice_of_mark
     end
 
-    def set_players_marks
-      set_human_mark
-      set_computer_mark
+    def set_computer_mark
+      game.computer.choose_mark(game.board)
+    end
+
+    def set_human_mark
+      choice_of_mark = display.get_user_input
+      game.human.mark = parse(choice_of_mark)
     end
 
     def display_board
@@ -119,13 +123,5 @@ module TicTacToe
       choice_of_mark == 1 ? "X" : "O"
     end
 
-    def set_computer_mark
-      game.computer.mark = @human_mark == "X" ? "O" : "X"
-    end
-
-    def set_human_mark
-      choice_of_mark = display.get_user_input
-      @human_mark = parse(choice_of_mark)
-    end
   end
 end

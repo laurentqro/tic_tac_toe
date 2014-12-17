@@ -2,6 +2,11 @@ module TicTacToe
   class Computer
     attr_accessor :mark
 
+    def choose_mark(board)
+      opponent_mark = board.grid.grep(String)[0]
+      opponent_mark == "X" ? @mark = "O" : @mark = "X"
+    end
+
     def winning_space(mark, board)
       winning_spaces(mark, board).first
     end

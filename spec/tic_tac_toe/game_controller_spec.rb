@@ -1,5 +1,6 @@
 require 'tic_tac_toe/game_controller'
 require 'tic_tac_toe/game'
+require 'tic_tac_toe/human'
 
 describe TicTacToe::GameController do
 
@@ -7,8 +8,9 @@ describe TicTacToe::GameController do
   let(:output) { StringIO.new }
   let(:display) { TicTacToe::Display.new(input: input, output: output) }
   let(:board) { TicTacToe::Board.new([1, 2, 3, 4, 5, 6, 7, 8, 9]) }
+  let(:human) { TicTacToe::Human.new }
   let(:computer) { TicTacToe::Computer.new }
-  let(:game) { TicTacToe::Game.new(board: board, computer: computer) }
+  let(:game) { TicTacToe::Game.new(board: board, computer: computer, human: human) }
   let(:controller) { TicTacToe::GameController.new(display: display, game: game) }
 
   describe "#display_game_title" do
@@ -25,19 +27,39 @@ describe TicTacToe::GameController do
     end
   end
 
-  describe "#set_players_marks" do
-    it "sets computer mark to O if human picked X" do
-      allow(display).to receive(:get_user_input) { 1 }
-      controller.set_players_marks
-      expect(controller.human_mark).to eql "X"
-      expect(computer.mark).to eql "O"
+  describe "#set_computer_mark" do
+    it "sets computer mark to O if first player picked X" do
+      board = TicTacToe::Board.new(["X", 2, 3, 4, 5, 6, 7, 8, 9])
+      game = TicTacToe::Game.new(board: board, computer: computer, human: human)
+      controller = TicTacToe::GameController.new(display: display, game: game)
+      controller.set_computer_mark
+      expect(game.computer.mark).to eql "O"
     end
 
-    it "sets computer mark to X if human picked O" do
-      allow(display).to receive(:get_user_input) { 2 }
-      controller.set_players_marks
-      expect(controller.human_mark).to eql "O"
-      expect(computer.mark).to eql "X"
+    it "sets computer mark to X if first player picked O" do
+      board = TicTacToe::Board.new(["O", 2, 3, 4, 5, 6, 7, 8, 9])
+      game = TicTacToe::Game.new(board: board, computer: computer, human: human)
+      controller = TicTacToe::GameController.new(display: display, game: game)
+      controller.set_computer_mark
+      expect(game.computer.mark).to eql "X"
+    end
+  end
+
+  describe "#set_human_mark" do
+    it "sets human mark to X" do
+      input = StringIO.new("1\n")
+      display = TicTacToe::Display.new(input: input, output: output)
+      controller = TicTacToe::GameController.new(display: display, game: game)
+      controller.set_human_mark
+      expect(game.human.mark).to eql "X"
+    end
+
+    it "sets human mark to O" do
+      input = StringIO.new("2\n")
+      display = TicTacToe::Display.new(input: input, output: output)
+      controller = TicTacToe::GameController.new(display: display, game: game)
+      controller.set_human_mark
+      expect(game.human.mark).to eql "O"
     end
   end
 

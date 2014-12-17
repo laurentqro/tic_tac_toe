@@ -1,10 +1,11 @@
 module TicTacToe
   class Game
-    attr_reader :board, :computer
+    attr_reader :board, :computer, :human
 
-    def initialize(board: board, computer: computer)
+    def initialize(board: board, computer: computer, human: human)
       @board = board
       @computer = computer
+      @human = human
     end
 
     def is_over?

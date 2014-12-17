@@ -8,6 +8,14 @@ describe TicTacToe::Computer do
     computer.mark = "X"
   end
 
+  describe "#choose_mark" do
+    it "chooses its mark based on the first player's first move" do
+      board = TicTacToe::Board.new ["X", 2, 3, 4, 5, 6, 7, 8, 9]
+      computer.choose_mark(board)
+      expect(computer.mark).to eql "O"
+    end
+  end
+
   describe "#winning_space" do
     it "returns a winning space" do
       board = TicTacToe::Board.new ["X", "X", 3, 4, 5, 6, 7, 8, 9]
