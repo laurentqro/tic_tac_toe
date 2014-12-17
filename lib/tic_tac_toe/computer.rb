@@ -1,5 +1,3 @@
-require "tic_tac_toe/fake_board"
-
 module TicTacToe
   class Computer
     attr_accessor :mark
@@ -109,7 +107,7 @@ module TicTacToe
     end
 
     def create_fake_board(board)
-      TicTacToe::FakeBoard.new(board.grid.dup)
+      TicTacToe::Board.new(board.grid.dup)
     end
 
     def triples_with_only_one_mark(mark, board)
