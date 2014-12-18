@@ -7,31 +7,9 @@ module TicTacToe
       opponent_mark == "X" ? @mark = "O" : @mark = "X"
     end
 
-    def winning_space(mark, board)
-      winning_spaces(mark, board).first
-    end
-
-    def winning_spaces(mark, board)
-      winning_triples(mark, board).map do |winning_triple|
-        available_space_on_triple(winning_triple)
-      end
-    end
-
-    def opponent_winning_space(board)
-      winning_space(opponent_mark, board)
-    end
-
     def make_move(board)
       space = pick_move(board)
       board.mark_space(space, mark)
-    end
-
-    def space_to_fork(mark, board)
-      board.available_moves.find do |space|
-        fake_board = create_fake_board(board)
-        fake_board.mark_space(space, mark)
-        winning_spaces(mark, fake_board).count == 2
-      end
     end
 
     def pick_move(board)
@@ -68,6 +46,30 @@ module TicTacToe
 
       if board.available_moves.any?
         return board.available_moves.first
+      end
+    end
+
+    private
+
+    def winning_space(mark, board)
+      winning_spaces(mark, board).first
+    end
+
+    def winning_spaces(mark, board)
+      winning_triples(mark, board).map do |winning_triple|
+        available_space_on_triple(winning_triple)
+      end
+    end
+
+    def opponent_winning_space(board)
+      winning_space(opponent_mark, board)
+    end
+
+    def space_to_fork(mark, board)
+      board.available_moves.find do |space|
+        fake_board = create_fake_board(board)
+        fake_board.mark_space(space, mark)
+        winning_spaces(mark, fake_board).count == 2
       end
     end
 

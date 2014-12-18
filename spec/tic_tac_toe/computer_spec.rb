@@ -16,28 +16,6 @@ describe TicTacToe::Computer do
     end
   end
 
-  describe "#winning_space" do
-    it "returns a winning space" do
-      board = TicTacToe::Board.new ["X", "X", 3, 4, 5, 6, 7, 8, 9]
-      expect(computer.winning_space(computer.mark, board)).to eql 3
-    end
-  end
-
-  describe "#opponent_winning_space" do
-    it "returns the opponent's winning space" do
-      board = TicTacToe::Board.new [1, 2, 3, 4, 5, 6, "O", "O", 9]
-      expect(computer.opponent_winning_space(board)).to eql 9
-    end
-  end
-
-  describe "#space_to_fork" do
-    it "finds a space that creates two threats to win" do
-      board = TicTacToe::Board.new ["X", "O", 3, 4, "X", 6, 7, 8, "O"]
-      expect(computer.space_to_fork("X", board)).to eql 4
-      expect(computer.space_to_fork("O", board)).to eql nil
-    end
-  end
-
   describe "#make_move" do
     it "sets the computer's mark on a given space" do
       board = TicTacToe::Board.new [1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -45,7 +23,9 @@ describe TicTacToe::Computer do
       expect(board).to receive(:mark_space).with(3, computer.mark).and_return([1, 2, computer.mark, 4, 5, 6, 7, 8, 9])
       computer.make_move(board)
     end
+  end
 
+  describe "#pick_move" do
     context "when it has two in a row" do
       it "places a third to get three in a row" do
         board = TicTacToe::Board.new ["X", "O", 3, 4, "X", 6, "O", 8 , 9]
@@ -66,7 +46,7 @@ describe TicTacToe::Computer do
       it "creates a fork (two threats to win)" do
         board = TicTacToe::Board.new ["X", "O", 3, 4, "X", 6, 7, 8, "O"]
         computer.make_move(board)
-        expect(computer.winning_spaces(computer.mark, board).count).to eql 2
+        expect(board.grid).to eql ["X", "O", 3, "X", "X", 6, 7, 8, "O"]
       end
     end
 
@@ -74,57 +54,37 @@ describe TicTacToe::Computer do
       it "creates two in a row to force the opponent into defending, without creating an opportunity for opponent to fork" do
         board = TicTacToe::Board.new [ "O", 2, 3, 4, "X", 6, 7, 8, "O"]
         computer.make_move(board)
-        expect(computer.winning_spaces(computer.mark, board).count).to eql 1
+        expect(board.grid).to eql ["O", 2, 3, "X", "X", 6, 7, 8, "O"]
       end
 
       it "blocks opponent's fork" do
         board = TicTacToe::Board.new ["O", 2, 3, 4, "X", "O", 7, 8, 9]
         computer.make_move(board)
-        expect(computer.space_to_fork("O", board)).to be_nil
+        expect(board.grid).to eql ["O", 2, "X", 4, "X", "O", 7, 8, 9]
       end
     end
 
     context "when there is no opportunity to win, block, fork, or block a fork" do
       it "plays center" do
         board = TicTacToe::Board.new [1, 2, 3, 4, 5, 6, 7, 8, 9]
-        expect(computer.winning_space(computer.mark, board)).to be_nil
-        expect(computer.opponent_winning_space(board)).to be_nil
-        expect(computer.space_to_fork(computer.mark, board)).to be_nil
-        expect(computer.space_to_fork("O", board)).to be_nil
-
         computer.make_move(board)
         expect(board.grid).to eql [1, 2, 3, 4, "X", 6, 7, 8, 9]
       end
 
       it "plays the opposite corner if the opponent is in a corner" do
         board = TicTacToe::Board.new ["O", 2, 3, 4, "X", 6, 7, 8, 9]
-        expect(computer.winning_space(computer.mark, board)).to be_nil
-        expect(computer.opponent_winning_space(board)).to be_nil
-        expect(computer.space_to_fork(computer.mark, board)).to be_nil
-        expect(computer.space_to_fork("O", board)).to be_nil
-
         computer.make_move(board)
         expect(board.grid).to eql ["O", 2, 3, 4, "X", 6, 7, 8, "X"]
       end
 
       it "plays the first of the available corners if a corner is available" do
         board = TicTacToe::Board.new [1, 2, 3, 4, "O", 6, 7, 8, 9]
-        expect(computer.winning_space(computer.mark, board)).to be_nil
-        expect(computer.opponent_winning_space(board)).to be_nil
-        expect(computer.space_to_fork(computer.mark, board)).to be_nil
-        expect(computer.space_to_fork("O", board)).to be_nil
-
         computer.make_move(board)
         expect(board.grid).to eql ["X", 2, 3, 4, "O", 6, 7, 8, 9]
       end
 
       it "plays the first of the four available sides if everything else is taken" do
         board = TicTacToe::Board.new ["X", "O", "X", 4, "X", "O", "O", "X", "O"]
-        expect(computer.winning_space(computer.mark, board)).to be_nil
-        expect(computer.opponent_winning_space(board)).to be_nil
-        expect(computer.space_to_fork(computer.mark, board)).to be_nil
-        expect(computer.space_to_fork("O", board)).to be_nil
-
         computer.make_move(board)
         expect(board.grid).to eql ["X", "O", "X", "X", "X", "O", "O", "X", "O"]
       end
