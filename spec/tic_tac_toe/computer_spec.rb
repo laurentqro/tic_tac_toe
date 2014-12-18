@@ -30,15 +30,6 @@ describe TicTacToe::Computer do
     end
   end
 
-  describe "#make_move" do
-    it "sets the computer's mark on a given space" do
-      board = TicTacToe::Board.new [1, 2, 3, 4, 5, 6, 7, 8, 9]
-      allow(computer).to receive(:determine_best_move) { 3 }
-      computer.make_move(board)
-      expect(board.grid).to eql [1, 2, "X", 4, 5, 6, 7, 8, 9]
-    end
-  end
-
   describe "#space_to_fork" do
     it "finds a space that creates two threats to win" do
       board = TicTacToe::Board.new ["X", "O", 3, 4, "X", 6, 7, 8, "O"]
@@ -48,6 +39,13 @@ describe TicTacToe::Computer do
   end
 
   describe "#make_move" do
+    it "sets the computer's mark on a given space" do
+      board = TicTacToe::Board.new [1, 2, 3, 4, 5, 6, 7, 8, 9]
+      allow(computer).to receive(:determine_best_move) { 3 }
+      computer.make_move(board)
+      expect(board.grid).to eql [1, 2, "X", 4, 5, 6, 7, 8, 9]
+    end
+
     context "when it has two in a row" do
       it "places a third to get three in a row" do
         board = TicTacToe::Board.new ["X", "O", 3, 4, "X", 6, "O", 8 , 9]
@@ -74,9 +72,7 @@ describe TicTacToe::Computer do
 
     context "when opponent has the opportunity to create a fork" do
       it "creates two in a row to force the opponent into defending, without creating an opportunity for opponent to fork" do
-        board = TicTacToe::Board.new [ "O", 2,   3,
-                                        4, "X" , 6,
-                                        7,  8 , "O"]
+        board = TicTacToe::Board.new [ "O", 2, 3, 4, "X", 6, 7, 8, "O"]
         computer.make_move(board)
         expect(computer.winning_spaces(computer.mark, board).count).to eql 1
       end
@@ -89,7 +85,6 @@ describe TicTacToe::Computer do
     end
 
     context "when there is no opportunity to win, block, fork, or block a fork" do
-
       it "plays center" do
         board = TicTacToe::Board.new [1, 2, 3, 4, 5, 6, 7, 8, 9]
         expect(computer.winning_space(computer.mark, board)).to be_nil
