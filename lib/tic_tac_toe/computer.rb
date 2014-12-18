@@ -22,7 +22,7 @@ module TicTacToe
     end
 
     def make_move(board)
-      space = determine_best_move(board)
+      space = pick_move(board)
       board.mark_space(space, mark)
     end
 
@@ -34,7 +34,7 @@ module TicTacToe
       end
     end
 
-    def determine_best_move(board)
+    def pick_move(board)
       if winning_spaces(mark, board).any?
         return winning_space(mark, board)
       end
@@ -70,8 +70,6 @@ module TicTacToe
         return board.available_moves.first
       end
     end
-
-    private
 
     def winning_space_on_triple?(mark, triple)
       two_in_a_row_on_triple?(mark, triple) && available_space_on_triple?(triple)

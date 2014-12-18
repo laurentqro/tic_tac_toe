@@ -27,7 +27,7 @@ module TicTacToe
     end
 
     def make_move
-      @current_player.make_move(board)
+      current_player.make_move(board)
     end
   end
 end

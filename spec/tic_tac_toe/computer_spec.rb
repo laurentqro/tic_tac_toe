@@ -41,9 +41,9 @@ describe TicTacToe::Computer do
   describe "#make_move" do
     it "sets the computer's mark on a given space" do
       board = TicTacToe::Board.new [1, 2, 3, 4, 5, 6, 7, 8, 9]
-      allow(computer).to receive(:determine_best_move) { 3 }
+      allow(computer).to receive(:pick_move) { 3 }
+      expect(board).to receive(:mark_space).with(3, computer.mark).and_return([1, 2, computer.mark, 4, 5, 6, 7, 8, 9])
       computer.make_move(board)
-      expect(board.grid).to eql [1, 2, "X", 4, 5, 6, 7, 8, 9]
     end
 
     context "when it has two in a row" do
