@@ -2,7 +2,8 @@ describe TicTacToe::Game do
 
   let(:board) { TicTacToe::Board.new([1, 2, 3, 4, 5, 6, 7, 8, 9]) }
   let(:computer) { TicTacToe::Computer.new }
-  let(:game) { TicTacToe::Game.new(board: board, computer: computer) }
+  let(:human) { TicTacToe::Human.new }
+  let(:game) { TicTacToe::Game.new(board: board, computer: computer, human: human) }
 
   describe "#is_won?" do
     it "returns true if the game is won" do
@@ -41,6 +42,17 @@ describe TicTacToe::Game do
       game = TicTacToe::Game.new(board: board)
       expect(game.is_draw?).to eql true
       expect(game.is_over?).to eql true
+    end
+  end
+
+  describe "#next_player" do
+    context "when the current player is human, next player is computer" do
+      it "sets the game's current player to computer" do
+        game = TicTacToe::Game.new(board: board, computer: computer, human: human)
+        game.current_player = human
+        game.next_player
+        expect(game.current_player).to eql computer
+      end
     end
   end
 end

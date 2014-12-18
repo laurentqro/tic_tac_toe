@@ -1,11 +1,13 @@
 module TicTacToe
   class Game
     attr_reader :board, :computer, :human
+    attr_accessor :current_player
 
     def initialize(board: board, computer: computer, human: human)
       @board = board
       @computer = computer
       @human = human
+      @current_player = nil
     end
 
     def is_over?
@@ -18,6 +20,10 @@ module TicTacToe
 
     def is_draw?
       board.draw?
+    end
+
+    def next_player
+      @current_player == human ? @current_player = computer : @current_player = human
     end
   end
 end
