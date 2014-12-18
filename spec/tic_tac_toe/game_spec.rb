@@ -55,4 +55,12 @@ describe TicTacToe::Game do
       end
     end
   end
+
+  describe "#make_move" do
+    it "tells the current player to make a move" do
+      game.current_player = [computer, human].sample
+      expect(game.current_player).to receive(:make_move)
+      game.make_move
+    end
+  end
 end

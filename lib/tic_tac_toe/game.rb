@@ -25,5 +25,9 @@ module TicTacToe
     def next_player
       @current_player == human ? @current_player = computer : @current_player = human
     end
+
+    def make_move
+      @current_player.make_move(board)
+    end
   end
 end

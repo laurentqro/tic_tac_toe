@@ -74,16 +74,9 @@ describe TicTacToe::GameController do
   end
 
   describe "#make_move" do
-    it "tells the human player to make his move" do
-      board = TicTacToe::Board.new([1, 2, 3, 4, 5, 6, 7, 8, 9])
-      game = TicTacToe::Game.new(board: board, computer: computer, human: human)
-      input = StringIO.new("5\n")
-      display = TicTacToe::Display.new(input: input, output: output)
-      controller = TicTacToe::GameController.new(display: display, game: game)
-      game.human.mark = "X"
-      game.current_player = human
+    it "tells the game to make move" do
+      expect(game).to receive(:make_move)
       controller.make_move
-      expect(game.board.grid).to include "X" || "O"
     end
   end
 
