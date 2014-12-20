@@ -88,13 +88,6 @@ describe TicTacToe::GameController do
     end
   end
 
-  describe "#prompt_for_move" do
-    it "prompts the user to enter his move" do
-      controller.prompt_for_move
-      expect(output.string).to eql "Please enter the number of a space to mark it:\n"
-    end
-  end
-
   describe "#clear_screen" do
     it "tells the display to clear the screen" do
       controller.clear_screen

@@ -43,7 +43,7 @@ module TicTacToe
     end
 
     def display_choice_of_mark
-      display.output_choice_of_mark
+      display.get_mark
     end
 
     def set_computer_mark
@@ -51,8 +51,7 @@ module TicTacToe
     end
 
     def set_human_mark
-      choice_of_mark = display.get_user_input
-      game.human.mark = parse(choice_of_mark)
+      game.human.mark = parse(display.get_mark)
     end
 
     def display_board
@@ -70,10 +69,6 @@ module TicTacToe
 
     def next_player
       game.next_player
-    end
-
-    def prompt_for_move
-      display.output_prompt_for_move
     end
 
     def clear_screen
@@ -107,6 +102,5 @@ module TicTacToe
     def parse(choice_of_mark)
       choice_of_mark == 1 ? "X" : "O"
     end
-
   end
 end
