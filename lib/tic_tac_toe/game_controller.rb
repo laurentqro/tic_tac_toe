@@ -8,42 +8,25 @@ module TicTacToe
     end
 
     def start
-      clear_screen
-      display_game_title
-      insert_line_space
       display_choice_of_mark
-      set_human_mark
-      set_current_player_to(game.human)
-      insert_line_space
       display_board
-      insert_line_space
-      prompt_for_move
-      make_move
+      set_human_mark
       set_computer_mark
 
       until game.is_over? do
-        next_player
-        prompt_for_move
         make_move
-        clear_screen
-        display_game_title
-        insert_line_space
-        display_board
-        insert_line_space
+        next_player
       end
 
-      clear_screen
-      display_board
-      insert_line_space
       display_game_outcome
-    end
-
-    def display_game_title
-      display.output_game_title
     end
 
     def display_choice_of_mark
       display.get_mark
+    end
+
+    def display_board
+      game.display_board
     end
 
     def set_computer_mark
@@ -54,15 +37,6 @@ module TicTacToe
       game.human.mark = parse(display.get_mark)
     end
 
-    def display_board
-      grid = game.board.grid
-      display.output_board(grid)
-    end
-
-    def set_current_player_to(player)
-      game.current_player = player
-    end
-
     def make_move
       game.make_move
     end
@@ -71,30 +45,8 @@ module TicTacToe
       game.next_player
     end
 
-    def clear_screen
-      display.clear_screen
-    end
-
-    def insert_line_space
-      display.output_line_space
-    end
-
     def display_game_outcome
-      if game.is_won? && game.current_player == game.human
-        display.output_win_announcement
-      end
-
-      if game.is_won? && game.current_player != game.human
-        display.output_loss_announcement
-      end
-
-      if game.is_draw?
-        display.output_draw_announcement
-      end
-    end
-
-    def display_invalid_move_message
-      display.output_invalid_move_message
+      game.display_outcome
     end
 
     private

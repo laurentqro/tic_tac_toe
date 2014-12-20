@@ -9,7 +9,7 @@ describe TicTacToe::Display do
   describe "#output_game_title" do
     it "shows game title" do
       display.output_game_title
-      expect(output.string).to eql "** TicTacToe **\n"
+      expect(output.string).to eql "\e[2J\e[f\n** TicTacToe **\n \n"
     end
   end
 
@@ -34,13 +34,6 @@ describe TicTacToe::Display do
     end
   end
 
-  describe "#output_line_space" do
-    it "inserts a line space" do
-      display.output_line_space
-      expect(output.string).to eql "\s\n"
-    end
-  end
-
   describe "#output_win_announcement" do
     it "announces human win" do
       display.output_win_announcement
@@ -61,4 +54,14 @@ describe TicTacToe::Display do
       expect(output.string).to eql "Draw!\n"
     end
   end
+
+  describe "#output_board" do
+    it "displays the current game's board" do
+      grid = [1, 2, 3, 4, "X", 6, "O", 8, 9]
+      display.output_board(grid)
+      expect(output.string).to eql "\e[2J\e[f\n** TicTacToe **\n \n 1 | 2 | 3\n---+---+---\n 4 | X | 6\n---+---+---\n O | 8 | 9\n \n"
+    end
+  end
+
+
 end

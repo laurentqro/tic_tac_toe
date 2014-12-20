@@ -71,4 +71,41 @@ describe TicTacToe::Game do
       game.make_move
     end
   end
+
+  describe "#display_board" do
+    it "tells the display to output the board" do
+      allow(display).to receive(:output_board).with(board.grid)
+      game.display_board
+      expect(display).to have_received(:output_board).with(board.grid)
+    end
+  end
+
+  describe "#display_outcome" do
+    context "when there is a winner" do
+      it "announces win if human player won" do
+        game.current_player = human
+        allow(board).to receive(:winner?).and_return(true)
+        allow(display).to receive(:output_win_announcement)
+        game.display_outcome
+        expect(display).to have_received(:output_win_announcement)
+      end
+
+      it "announces loss if human player lost" do
+        game.current_player = computer
+        allow(board).to receive(:winner?).and_return(true)
+        allow(display).to receive(:output_loss_announcement)
+        game.display_outcome
+        expect(display).to have_received(:output_loss_announcement)
+      end
+    end
+
+    context "when the game draws" do
+      it "announces draw" do
+        allow(board).to receive(:draw?).and_return(true)
+        allow(display).to receive(:output_draw_announcement)
+        game.display_outcome
+        expect(display).to have_received(:output_draw_announcement)
+      end
+    end
+  end
 end

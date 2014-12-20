@@ -30,6 +30,25 @@ module TicTacToe
     def make_move
       space = get_move
       current_player.make_move(space, board)
+      display.clear_screen
+    end
+
+    def display_board
+      display.output_board(board.grid)
+    end
+
+    def display_outcome
+      if is_won? && current_player == human
+        display.output_win_announcement
+      end
+
+      if is_won? && current_player != human
+        display.output_loss_announcement
+      end
+
+      if is_draw?
+        display.output_draw_announcement
+      end
     end
 
     private

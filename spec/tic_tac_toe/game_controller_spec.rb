@@ -13,17 +13,19 @@ describe TicTacToe::GameController do
   let(:game) { TicTacToe::Game.new(board: board, computer: computer, human: human) }
   let(:controller) { TicTacToe::GameController.new(display: display, game: game) }
 
-  describe "#display_game_title" do
-    it "displays game title" do
-      controller.display_game_title
-      expect(output.string).to eql "** TicTacToe **\n"
+  describe "#display_choice_of_mark" do
+    it "tells the human player to choose X or O mark" do
+      allow(display).to receive(:get_mark)
+      controller.display_choice_of_mark
+      expect(display).to have_received(:get_mark)
     end
   end
 
-  describe "#display_choice_of_mark" do
-    it "tells the human player to choose X or O mark" do
-      controller.display_choice_of_mark
-      expect(output.string).to eql "Choose your mark:\n\s1: X\n\s2: O\n"
+  describe "#display_board" do
+    it "tells the game to display board" do
+      allow(game).to receive(:display_board)
+      controller.display_board
+      expect(game).to have_received(:display_board)
     end
   end
 
@@ -63,16 +65,6 @@ describe TicTacToe::GameController do
     end
   end
 
-  describe "#display_board" do
-    it "displays the current game's board" do
-      board = TicTacToe::Board.new([1, 2, 3, 4, "X", 6, "O", 8, 9])
-      game = TicTacToe::Game.new(board: board, computer: computer, human: human)
-      controller = TicTacToe::GameController.new(display: display, game: game)
-      controller.display_board
-      expect(output.string).to eql " 1 | 2 | 3\n---+---+---\n 4 | X | 6\n---+---+---\n O | 8 | 9\n"
-    end
-  end
-
   describe "#make_move" do
     it "tells the game to make move" do
       expect(game).to receive(:make_move)
@@ -81,61 +73,18 @@ describe TicTacToe::GameController do
   end
 
   describe "#next_player" do
-    it "switches current player to opponent" do
-      controller.set_current_player_to(human)
+    it "tells the game to switche current player" do
+      allow(game).to receive(:next_player)
       controller.next_player
-      expect(game.current_player).to eql computer
-    end
-  end
-
-  describe "#clear_screen" do
-    it "tells the display to clear the screen" do
-      controller.clear_screen
-      expect(output.string).to eql "\e[2J\e[f\n"
-    end
-  end
-
-  describe "#insert_line_space" do
-    it "tells the display to insert line space" do
-      controller.insert_line_space
-      expect(output.string).to eql "\s\n"
+      expect(game).to have_received(:next_player)
     end
   end
 
   describe "#display_game_outcome" do
-    context "when there is a winner" do
-      it "announces win if human player won" do
-        board = TicTacToe::Board.new(["X", 2, 3, 4, "X", 6, "O", "O", "X"])
-        game = TicTacToe::Game.new(board: board, computer: computer, human: human)
-        controller = TicTacToe::GameController.new(display: display, game: game)
-        game.current_player = human
-        game.human.mark = "X"
-        expect(controller.game.is_won?).to eql true
-        controller.display_game_outcome
-        expect(output.string).to eql "Congratulations, you won!\n"
-      end
-
-      it "announces loss if human player lost" do
-        board = TicTacToe::Board.new(["O", 2, 3, 4, "O", 6, "X", "X", "O"])
-        game = TicTacToe::Game.new(board: board, computer: computer, human: human)
-        controller = TicTacToe::GameController.new(display: display, game: game)
-        game.current_player = computer
-        game.human.mark = "X"
-        expect(controller.game.is_won?).to eql true
-        controller.display_game_outcome
-        expect(output.string).to eql "Oh no, you lost!\n"
-      end
-    end
-
-    context "when the game draws" do
-      it "announces draw" do
-        board = TicTacToe::Board.new(["X", "O", "X", "X", "O", "O", "O", "X", "X"])
-        game = TicTacToe::Game.new(board: board, computer: computer, human: human)
-        controller = TicTacToe::GameController.new(display: display, game: game)
-        expect(controller.game.is_draw?).to eql true
-        controller.display_game_outcome
-        expect(output.string).to eql "Draw!\n"
-      end
+    it "displays the outcome of the game" do
+      allow(game).to receive(:display_outcome)
+      controller.display_game_outcome
+      expect(game).to have_received(:display_outcome)
     end
   end
 end
