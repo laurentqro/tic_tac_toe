@@ -10,22 +10,20 @@ module TicTacToe
       @output.puts "** TicTacToe **"
     end
 
-    def output_choice_of_mark
+    def get_mark
       @output.puts "Choose your mark:"
       @output.puts "\s1: X"
       @output.puts "\s2: O"
+      @input.gets.chomp.to_i
     end
 
     def output_board(grid)
       @output.puts " #{grid[0]} | #{grid[1]} | #{grid[2]}\n---+---+---\n #{grid[3]} | #{grid[4]} | #{grid[5]}\n---+---+---\n #{grid[6]} | #{grid[7]} | #{grid[8]}\n"
     end
 
-    def get_user_input
-      @input.gets.chomp.to_i
-    end
-
-    def output_prompt_for_move
+    def get_move
       @output.puts "Please enter the number of a space to mark it:"
+      get_user_input
     end
 
     def clear_screen
@@ -50,6 +48,12 @@ module TicTacToe
 
     def output_invalid_move_message
       @output.print "You entered an invalid move.\s"
+    end
+
+    private
+
+    def get_user_input
+      @input.gets.chomp.to_i
     end
   end
 end

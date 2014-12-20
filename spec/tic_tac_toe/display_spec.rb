@@ -2,7 +2,7 @@ require 'tic_tac_toe/display'
 
 describe TicTacToe::Display do
 
-  let(:input) { StringIO.new }
+  let(:input) { StringIO.new("1\n") }
   let(:output) { StringIO.new }
   let(:display) { TicTacToe::Display.new(input: input, output: output) }
 
@@ -13,19 +13,17 @@ describe TicTacToe::Display do
     end
   end
 
-  describe "#output_choice_of_mark" do
-    it "asks human player to choose a mark X or O" do
-      display.output_choice_of_mark
+  describe "#get_mark" do
+    it "asks first player to choose a mark X or O" do
+      display.get_mark
       expect(output.string).to eql "Choose your mark:\n\s1: X\n\s2: O\n"
     end
   end
 
-  describe "#get_user_input" do
-    it "asks human player for input" do
-      input = StringIO.new("1\n")
-      output = StringIO.new
-      display = TicTacToe::Display.new(input: input, output: output)
-      expect(display.get_user_input).to eql 1
+  describe "#get_move" do
+    it "asks current player for his move" do
+      display.get_move
+      expect(output.string).to eql "Please enter the number of a space to mark it:\n"
     end
   end
 
@@ -63,5 +61,4 @@ describe TicTacToe::Display do
       expect(output.string).to eql "Draw!\n"
     end
   end
-
 end
