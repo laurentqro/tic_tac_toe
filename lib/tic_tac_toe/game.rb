@@ -1,12 +1,13 @@
 module TicTacToe
   class Game
-    attr_reader :board, :computer, :human
+    attr_reader :board, :computer, :human, :display
     attr_accessor :current_player
 
-    def initialize(board: board, computer: computer, human: human)
+    def initialize(board: board, computer: computer, human: human, display: display)
       @board = board
       @computer = computer
       @human = human
+      @display = display
       @current_player = nil
     end
 
@@ -27,7 +28,15 @@ module TicTacToe
     end
 
     def make_move
-      current_player.make_move(board)
+      space = get_move
+      current_player.make_move(space, board)
     end
+
+    private
+
+    def get_move
+      display.get_move
+    end
+
   end
 end

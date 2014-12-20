@@ -1,9 +1,17 @@
+require 'tic_tac_toe/computer'
+require 'tic_tac_toe/human'
+require 'tic_tac_toe/display'
+require 'tic_tac_toe/game'
+
 describe TicTacToe::Game do
 
   let(:board) { TicTacToe::Board.new([1, 2, 3, 4, 5, 6, 7, 8, 9]) }
   let(:computer) { TicTacToe::Computer.new }
   let(:human) { TicTacToe::Human.new }
-  let(:game) { TicTacToe::Game.new(board: board, computer: computer, human: human) }
+  let(:input) { StringIO.new }
+  let(:output) { StringIO.new }
+  let(:display) { TicTacToe::Display.new(input: input, output: output) }
+  let(:game) { TicTacToe::Game.new(board: board, computer: computer, human: human, display: display) }
 
   describe "#is_won?" do
     it "returns true if the game is won" do
