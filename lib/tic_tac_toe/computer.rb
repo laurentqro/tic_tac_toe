@@ -3,11 +3,12 @@ module TicTacToe
     attr_accessor :mark
 
     def choose_mark(board)
-      opponent_mark = board.grid.grep(String)[0]
+      opponent_mark = ["X", "O"].find { |mark| board.grid.grep(mark).count.odd? }
       opponent_mark == "X" ? @mark = "O" : @mark = "X"
     end
 
     def make_move(space, board)
+      mark = @mark || choose_mark(board)
       board.mark_space(space, mark)
     end
 

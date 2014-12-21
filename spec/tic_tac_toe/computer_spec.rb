@@ -9,10 +9,16 @@ describe TicTacToe::Computer do
   end
 
   describe "#choose_mark" do
-    it "chooses its mark based on the first player's first move" do
+    it "chooses O if first player made first move with X" do
       board = TicTacToe::Board.new ["X", 2, 3, 4, 5, 6, 7, 8, 9]
       computer.choose_mark(board)
       expect(computer.mark).to eql "O"
+    end
+
+    it "chooses X if first player made first move with O" do
+      board = TicTacToe::Board.new [1, "O", 3, 4, 5, 6, 7, 8, 9]
+      computer.choose_mark(board)
+      expect(computer.mark).to eql "X"
     end
   end
 
