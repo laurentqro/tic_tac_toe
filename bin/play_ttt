@@ -1,15 +1,17 @@
 #!/usr/bin/env ruby
 
 $LOAD_PATH << 'lib'
-require 'tic_tac_toe/computer'
 require 'tic_tac_toe/board'
+require 'tic_tac_toe/computer'
+require 'tic_tac_toe/human'
 require 'tic_tac_toe/display'
 require 'tic_tac_toe/game'
 require 'tic_tac_toe/game_controller'
 
 board = TicTacToe::Board.new
 computer = TicTacToe::Computer.new
-game = TicTacToe::Game.new(computer: computer, board: board)
+human = TicTacToe::Human.new
 display = TicTacToe::Display.new
+game = TicTacToe::Game.new(computer: computer, human: human, board: board, display: display)
 
-TicTacToe::GameController.new(game: game, display: display).start
+TicTacToe::GameController.new(game: game).start
