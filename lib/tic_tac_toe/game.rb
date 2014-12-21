@@ -8,7 +8,7 @@ module TicTacToe
       @computer = computer
       @human = human
       @display = display
-      @current_player = nil
+      @current_player = human
     end
 
     def is_over?
@@ -28,8 +28,8 @@ module TicTacToe
     end
 
     def make_move
-      space = get_move
-      current_player.make_move(space, board)
+      move = get_move_from(current_player)
+      current_player.make_move(move, board)
       display.clear_screen
     end
 
@@ -53,8 +53,12 @@ module TicTacToe
 
     private
 
-    def get_move
-      display.get_move
+    def get_move_from(current_player)
+      if current_player == human
+        display.get_move
+      else
+        computer.pick_move(board)
+      end
     end
 
   end

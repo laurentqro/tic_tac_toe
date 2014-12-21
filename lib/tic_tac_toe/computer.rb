@@ -7,8 +7,7 @@ module TicTacToe
       opponent_mark == "X" ? @mark = "O" : @mark = "X"
     end
 
-    def make_move(board)
-      space = pick_move(board)
+    def make_move(space, board)
       board.mark_space(space, mark)
     end
 

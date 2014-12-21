@@ -15,6 +15,7 @@ module TicTacToe
 
       until game.is_over? do
         make_move
+        display_board
         next_player
       end
 
