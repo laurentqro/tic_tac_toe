@@ -11,6 +11,10 @@ module TicTacToe
       @current_player = human
     end
 
+    def set_human_mark
+      human.mark = parse(display.get_mark)
+    end
+
     def is_over?
       is_won? || is_draw?
     end
@@ -59,6 +63,10 @@ module TicTacToe
       else
         computer.pick_move(board)
       end
+    end
+
+    def parse(choice_of_mark)
+      choice_of_mark == 1 ? "X" : "O"
     end
 
   end

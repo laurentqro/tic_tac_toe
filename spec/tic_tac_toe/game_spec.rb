@@ -120,4 +120,18 @@ describe TicTacToe::Game do
       end
     end
   end
+
+  describe "#set_human_mark" do
+    it "sets human mark to X" do
+      allow(display).to receive(:get_mark).and_return(1)
+      game.set_human_mark
+      expect(human.mark).to eql "X"
+    end
+
+    it "sets human mark to O" do
+      allow(display).to receive(:get_mark).and_return(2)
+      game.set_human_mark
+      expect(human.mark).to eql "O"
+    end
+  end
 end
