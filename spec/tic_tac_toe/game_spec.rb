@@ -13,43 +13,19 @@ describe TicTacToe::Game do
   let(:display) { TicTacToe::Display.new(input: input, output: output) }
   let(:game) { TicTacToe::Game.new(board: board, computer: computer, human: human, display: display) }
 
-  describe "#is_won?" do
-    it "returns true if the game is won" do
-      board = TicTacToe::Board.new(["X", "O", "X", "O", "X", "O", "O", 8, "X"])
-      game = TicTacToe::Game.new(board: board)
-      expect(game.is_won?).to eql true
-    end
-
-    it "returns false if the game is not won" do
-      expect(game.is_won?).to eql false
-    end
-  end
-
-  describe "#is_draw?" do
-    it "returns true if game is a draw" do
-      board = TicTacToe::Board.new(["X", "O", "X", "O", "X", "O", "X", "O", "X"])
-      game = TicTacToe::Game.new(board: board)
-      expect(game.is_draw?).to eql true
-    end
-
-    it "returns false if game is not a draw" do
-      expect(game.is_draw?).to eql false
-    end
-  end
-
-  describe "#is_over?" do
-    it "returns true if game is won" do
-      board = TicTacToe::Board.new(["X", "O", "X", "O", "X", "O", "O", 8, "X"])
-      game = TicTacToe::Game.new(board: board)
-      expect(game.is_won?).to eql true
-      expect(game.is_over?).to eql true
-    end
-
-    it "returns true if game is draw" do
-      board = TicTacToe::Board.new(["X", "O", "X", "O", "X", "O", "X", "O", "X"])
-      game = TicTacToe::Game.new(board: board)
-      expect(game.is_draw?).to eql true
-      expect(game.is_over?).to eql true
+  describe "#play" do
+    it "plays a new game" do
+      expect(display).to receive(:get_mark).and_return(1)
+      expect(human).to receive(:pick_move).and_return(1)
+      expect(computer).to receive(:pick_move).and_return(5)
+      expect(human).to receive(:pick_move).and_return(9)
+      expect(computer).to receive(:pick_move).and_return(4)
+      expect(human).to receive(:pick_move).and_return(6)
+      expect(computer).to receive(:pick_move).and_return(3)
+      expect(human).to receive(:pick_move).and_return(7)
+      expect(computer).to receive(:pick_move).and_return(8)
+      expect(human).to receive(:pick_move).and_return(2)
+      game.play
     end
   end
 
@@ -66,18 +42,11 @@ describe TicTacToe::Game do
 
   describe "#make_move" do
     it "makes the current player make a move" do
-      allow(board).to receive(:mark_space)
       game.current_player = [human, computer].sample
-      game.make_move(3, game.current_player)
+      allow(board).to receive(:mark_space)
+      allow(game.current_player).to receive(:pick_move).and_return(3)
+      game.make_move(game.current_player)
       expect(board).to have_received(:mark_space).with(3, game.current_player.mark)
-    end
-  end
-
-  describe "#display_board" do
-    it "tells the display to output the board" do
-      allow(display).to receive(:output_board).with(board.grid)
-      game.display_board
-      expect(display).to have_received(:output_board).with(board.grid)
     end
   end
 
