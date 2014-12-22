@@ -34,6 +34,14 @@ describe TicTacToe::Display do
     end
   end
 
+  describe "#output_board" do
+    it "displays the current game's board" do
+      grid = [1, 2, 3, 4, "X", 6, "O", 8, 9]
+      display.output_board(grid)
+      expect(output.string).to eql "\e[2J\e[f\n** TicTacToe **\n \n 1 | 2 | 3\n---+---+---\n 4 | X | 6\n---+---+---\n O | 8 | 9\n \n"
+    end
+  end
+
   describe "#output_win_announcement" do
     it "announces human win" do
       display.output_win_announcement
@@ -55,13 +63,11 @@ describe TicTacToe::Display do
     end
   end
 
-  describe "#output_board" do
-    it "displays the current game's board" do
-      grid = [1, 2, 3, 4, "X", 6, "O", 8, 9]
-      display.output_board(grid)
-      expect(output.string).to eql "\e[2J\e[f\n** TicTacToe **\n \n 1 | 2 | 3\n---+---+---\n 4 | X | 6\n---+---+---\n O | 8 | 9\n \n"
+  describe "#output_invalid_move_message" do
+    it "alerts the player of an invalid move" do
+      display.output_invalid_move_message
+      expect(output.string).to eql "You entered an invalid move.\s"
     end
   end
-
 
 end
