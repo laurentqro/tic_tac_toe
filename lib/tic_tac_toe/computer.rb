@@ -61,10 +61,6 @@ module TicTacToe
       end
     end
 
-    def opponent_winning_space(board)
-      winning_space(opponent_mark, board)
-    end
-
     def space_to_fork(mark, board)
       board.available_moves.find do |space|
         fake_board = create_fake_board(board)
@@ -99,10 +95,6 @@ module TicTacToe
         fake_board.mark_space(space, mark)
         space_to_fork(opponent_mark, fake_board) == nil
       end
-    end
-
-    def find_duplicate_in(spaces)
-      spaces.detect { |space| spaces.count(space) > 1 }
     end
 
     def winning_triples(mark, board)
