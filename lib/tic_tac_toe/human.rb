@@ -1,9 +1,9 @@
 module TicTacToe
   class Human
-    attr_accessor :mark
+    attr_accessor :mark, :display
 
-    def make_move(space, board)
-      board.mark_space(space, mark)
+    def pick_move(board)
+      display.get_move
     end
   end
 end

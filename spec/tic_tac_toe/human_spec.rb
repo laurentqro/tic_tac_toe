@@ -14,12 +14,13 @@ describe TicTacToe::Human do
     expect(human).to respond_to :mark
   end
 
-  describe "#make_move" do
+  describe "#pick_move" do
     it "sets the human player's mark on a given space" do
-      allow(board).to receive(:mark_space)
+      allow(display).to receive(:get_move)
       human.mark = "X"
-      human.make_move(3, board)
-      expect(board).to have_received(:mark_space).with(3, "X")
+      human.display = display
+      human.pick_move(board=nil)
+      expect(display).to have_received(:get_move)
     end
   end
 end
