@@ -11,6 +11,20 @@ module TicTacToe
       @current_player = human
     end
 
+    def play
+      set_human_mark
+      display_board
+
+      until is_over? do
+        move = get_move_from(current_player)
+        make_move(move, current_player)
+        display_board
+        next_player
+      end
+
+      display_outcome
+    end
+
     def set_human_mark
       human.mark = parse(display.get_mark)
     end
@@ -31,9 +45,8 @@ module TicTacToe
       @current_player == human ? @current_player = computer : @current_player = human
     end
 
-    def make_move
-      move = get_move_from(current_player)
-      current_player.make_move(move, board)
+    def make_move(move, player)
+      board.mark_space(move, player.mark)
       display.clear_screen
     end
 
@@ -57,16 +70,16 @@ module TicTacToe
 
     private
 
+    def parse(choice_of_mark)
+      choice_of_mark == 1 ? "X" : "O"
+    end
+
     def get_move_from(current_player)
       if current_player == human
         display.get_move
       else
         computer.pick_move(board)
       end
-    end
-
-    def parse(choice_of_mark)
-      choice_of_mark == 1 ? "X" : "O"
     end
 
   end

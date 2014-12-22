@@ -65,22 +65,11 @@ describe TicTacToe::Game do
   end
 
   describe "#make_move" do
-    it "tells the human player to make a move" do
-      game = TicTacToe::Game.new(board: board, computer: computer, human: human, display: display)
-      game.current_player = human
-      allow(display).to receive(:get_move).and_return(3)
-      allow(game.current_player).to receive(:make_move)
-      game.make_move
-      expect(game.current_player).to have_received(:make_move).with(3, board)
-    end
-
-    it "tells the computer to make a move" do
-      game = TicTacToe::Game.new(board: board, computer: computer, human: human, display: display)
-      game.current_player = computer
-      allow(game.current_player).to receive(:pick_move).and_return(5)
-      allow(game.current_player).to receive(:make_move)
-      game.make_move
-      expect(game.current_player).to have_received(:make_move).with(5, board)
+    it "makes the current player make a move" do
+      allow(board).to receive(:mark_space)
+      game.current_player = [human, computer].sample
+      game.make_move(3, game.current_player)
+      expect(board).to have_received(:mark_space).with(3, game.current_player.mark)
     end
   end
 
