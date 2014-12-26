@@ -1,3 +1,4 @@
+require 'tic_tac_toe/board'
 require 'tic_tac_toe/computer'
 require 'tic_tac_toe/human'
 require 'tic_tac_toe/display'
@@ -32,7 +33,6 @@ describe TicTacToe::Game do
   describe "#next_player" do
     context "when the current player is human, next player is computer" do
       it "sets the game's current player to computer" do
-        game = TicTacToe::Game.new(board: board, computer: computer, human: human)
         game.current_player = human
         game.next_player
         expect(game.current_player).to eql computer
