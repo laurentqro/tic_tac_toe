@@ -42,17 +42,10 @@ describe TicTacToe::Display do
     end
   end
 
-  describe "#output_win_announcement" do
-    it "announces human win" do
-      display.output_win_announcement
-      expect(output.string).to eql "Congratulations, you won!\n"
-    end
-  end
-
-  describe "#output_loss_announcement" do
-    it "announces human loss" do
-      display.output_loss_announcement
-      expect(output.string).to eql "Oh no, you lost!\n"
+  describe "#output_win_announcement_for" do
+    it "announces winner" do
+      display.output_win_announcement_for("X")
+      expect(output.string).to eql "X won!\n"
     end
   end
 

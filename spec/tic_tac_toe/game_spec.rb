@@ -52,20 +52,12 @@ describe TicTacToe::Game do
 
   describe "#display_outcome" do
     context "when there is a winner" do
-      it "announces win if human player won" do
-        game.current_player = human
+      it "announce winner" do
+        game.current_player = [human, computer].sample
         allow(board).to receive(:winner?).and_return(true)
-        allow(display).to receive(:output_win_announcement)
+        allow(display).to receive(:output_win_announcement_for)
         game.display_outcome
-        expect(display).to have_received(:output_win_announcement)
-      end
-
-      it "announces loss if human player lost" do
-        game.current_player = computer
-        allow(board).to receive(:winner?).and_return(true)
-        allow(display).to receive(:output_loss_announcement)
-        game.display_outcome
-        expect(display).to have_received(:output_loss_announcement)
+        expect(display).to have_received(:output_win_announcement_for).with(game.current_player.mark)
       end
     end
 

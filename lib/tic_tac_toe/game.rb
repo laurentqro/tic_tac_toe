@@ -16,10 +16,11 @@ module TicTacToe
     def play
       set_human_mark
       display.output_board(board.grid)
+      make_move(current_player)
 
       until board.winner? || board.draw?  do
-        make_move(current_player)
         next_player
+        make_move(current_player)
       end
 
       display_outcome
@@ -49,12 +50,8 @@ module TicTacToe
     end
 
     def display_outcome
-      if board.winner? && current_player == human
-        display.output_win_announcement
-      end
-
-      if board.winner? && current_player != human
-        display.output_loss_announcement
+      if board.winner?
+        display.output_win_announcement_for(current_player.mark)
       end
 
       if board.draw?

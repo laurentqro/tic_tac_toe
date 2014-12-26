@@ -34,12 +34,8 @@ module TicTacToe
       output_line_space
     end
 
-    def output_win_announcement
-      @output.puts "Congratulations, you won!"
-    end
-
-    def output_loss_announcement
-      @output.puts "Oh no, you lost!"
+    def output_win_announcement_for(player_mark)
+      @output.puts "#{player_mark} won!"
     end
 
     def output_draw_announcement
