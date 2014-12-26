@@ -6,6 +6,7 @@ module TicTacToe
     def initialize(board: board, computer: computer, human: human, display: display)
       @board = board
       @computer = computer
+      @computer.board = @board
       @human = human
       @display = display
       @human.display = @display
@@ -33,7 +34,7 @@ module TicTacToe
     end
 
     def make_move(player)
-      move = player.pick_move(board)
+      move = player.pick_move
       board.mark_space(move, player.mark)
       display.clear_screen
       display.output_board(board.grid)
