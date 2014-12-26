@@ -1,8 +1,8 @@
 module TicTacToe
   class Computer
-    attr_accessor :mark
+    attr_accessor :mark, :board
 
-    def choose_mark(board)
+    def choose_mark
       opponent_mark = ["X", "O"].find { |mark| board.grid.grep(mark).count.odd? }
       opponent_mark == "X" ? @mark = "O" : @mark = "X"
     end
