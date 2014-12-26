@@ -3,7 +3,7 @@ module TicTacToe
     attr_reader :board, :computer, :human, :display
     attr_accessor :current_player
 
-    def initialize(board: board, computer: computer, human: human, display: display)
+    def initialize(board: board=nil, computer: computer=nil, human: human=nil, display: display=nil)
       @board = board
       @computer = computer
       @computer.board = @board
