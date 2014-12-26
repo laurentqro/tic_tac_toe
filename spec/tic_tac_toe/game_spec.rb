@@ -98,7 +98,7 @@ describe TicTacToe::Game do
       expect(human).to receive(:pick_move).and_return("gibberish")
       expect(human).to receive(:pick_move).and_return(10)
       expect(human).to receive(:pick_move).and_return(1)
-      game.get_valid_move_from(human)
+      expect(game.get_valid_move_from(human)).to eql 1
     end
   end
 end
