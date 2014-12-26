@@ -34,10 +34,18 @@ module TicTacToe
     end
 
     def make_move(player)
-      move = player.pick_move
+      move = get_valid_move_from(player)
       board.mark_space(move, player.mark)
       display.clear_screen
       display.output_board(board.grid)
+    end
+
+    def get_valid_move_from(player)
+      move = player.pick_move
+      until board.is_valid_move?(move)
+        move = player.pick_move
+      end
+      return move
     end
 
     def display_outcome

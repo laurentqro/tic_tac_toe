@@ -92,4 +92,13 @@ describe TicTacToe::Game do
       expect(human.mark).to eql "O"
     end
   end
+
+  describe "#get_valid_move_from" do
+    it "asks for a move until it is a valid one" do
+      expect(human).to receive(:pick_move).and_return("gibberish")
+      expect(human).to receive(:pick_move).and_return(10)
+      expect(human).to receive(:pick_move).and_return(1)
+      game.get_valid_move_from(human)
+    end
+  end
 end
