@@ -11,20 +11,20 @@ module TicTacToe
       mark = @mark || choose_mark
 
       if winning_spaces(mark, board).any?
-        return winning_space(mark, board)
+        return winning_space(mark)
       end
 
       if winning_spaces(opponent_mark, board).any?
-        return winning_space(opponent_mark, board)
+        return winning_space(opponent_mark)
       end
 
       if space_to_fork(mark, board)
         return space_to_fork(mark, board)
       end
 
-      if triples_with_only_one_mark(mark, board).any? && space_to_fork(opponent_mark, board)
-        attacking_moves  = spaces_on_triples_with_only_one_mark(mark, board).reject do |space|
-          results_in_space_to_fork?(space, board)
+      if triples_with_only_one_mark(mark).any? && space_to_fork(opponent_mark, board)
+        attacking_moves  = spaces_on_triples_with_only_one_mark(mark).reject do |move|
+          results_in_space_to_fork?(move)
         end
         return attacking_moves.first || space_to_fork(opponent_mark, board)
       end
@@ -33,8 +33,8 @@ module TicTacToe
         return 5
       end
 
-      if board.corners.include? opponent_mark && available_opposite_corner(board)
-        return available_opposite_corner(board)
+      if board.corners.include? opponent_mark && available_opposite_corner
+        return available_opposite_corner
       end
 
       if board.corners.any? { |corner| board.available_moves.include? corner }
@@ -48,7 +48,7 @@ module TicTacToe
 
     private
 
-    def winning_space(mark, board)
+    def winning_space(mark)
       winning_spaces(mark, board).first
     end
 
@@ -60,7 +60,7 @@ module TicTacToe
 
     def space_to_fork(mark, board)
       board.available_moves.find do |space|
-        fake_board = create_fake_board(board)
+        fake_board = create_fake_board
         fake_board.mark_space(space, mark)
         winning_spaces(mark, fake_board).count == 2
       end
@@ -86,9 +86,9 @@ module TicTacToe
       @mark == "X" ? "O" : "X"
     end
 
-    def results_in_space_to_fork?(move, board)
+    def results_in_space_to_fork?(move)
       board.available_moves.any? do |space|
-        fake_board = create_fake_board(board)
+        fake_board = create_fake_board
         fake_board.mark_space(space, mark)
         space_to_fork(opponent_mark, fake_board) == nil
       end
@@ -100,21 +100,21 @@ module TicTacToe
       end
     end
 
-    def create_fake_board(board)
+    def create_fake_board
       TicTacToe::Board.new(board.grid.dup)
     end
 
-    def triples_with_only_one_mark(mark, board)
+    def triples_with_only_one_mark(mark)
       board.triples.select do |triple|
         triple.grep(Fixnum).count == 2 && triple.grep(mark).count == 1
       end
     end
 
-    def spaces_on_triples_with_only_one_mark(mark, board)
-      triples_with_only_one_mark(mark, board).flatten!.uniq.grep(Integer)
+    def spaces_on_triples_with_only_one_mark(mark)
+      triples_with_only_one_mark(mark).flatten!.uniq.grep(Integer)
     end
 
-    def available_opposite_corner(board)
+    def available_opposite_corner
       board.grid.map.with_index do |space, index|
         return board.opposite_corner(index) if space == opponent_mark && board.opposite_corner(index).is_a?(Fixnum)
       end
