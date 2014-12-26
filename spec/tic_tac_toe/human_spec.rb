@@ -15,7 +15,7 @@ describe TicTacToe::Human do
       allow(display).to receive(:get_move)
       human.mark = "X"
       human.display = display
-      human.pick_move(board=nil)
+      human.pick_move
       expect(display).to have_received(:get_move)
     end
   end
