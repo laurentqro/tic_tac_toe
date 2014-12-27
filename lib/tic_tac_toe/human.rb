@@ -1,6 +1,6 @@
 module TicTacToe
-  class Human
-    attr_accessor :mark, :display
+  class Human < Player
+    attr_reader :mark
 
     def pick_move
       display.get_move

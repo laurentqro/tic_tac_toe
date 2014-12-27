@@ -1,21 +1,22 @@
 module TicTacToe
   class Game
-    attr_reader :board, :computer, :human, :display
+    attr_reader :board, :player_x, :player_o, :display
     attr_accessor :current_player
 
-    def initialize(board: board=nil, computer: computer=nil, human: human=nil, display: display=nil)
+    def initialize(board: board=nil, player_x: player_x=nil, player_o: player_o=nil, display: display=nil)
       @board = board
-      @computer = computer
-      @computer.board = @board
-      @human = human
       @display = display
-      @human.display = @display
-      @current_player = human
+      @player_x = player_x
+      @player_o = player_o
+      @player_x.board = @board
+      @player_o.board = @board
+      @player_x.display = @display
+      @player_o.display = @display
     end
 
     def play
-      set_human_mark
       display.output_board(board.grid)
+      @current_player = player_x
       make_move(current_player)
 
       until board.winner? || board.draw?  do
@@ -26,12 +27,8 @@ module TicTacToe
       display_outcome
     end
 
-    def set_human_mark
-      human.mark = parse(display.get_mark)
-    end
-
     def next_player
-      @current_player == human ? @current_player = computer : @current_player = human
+      @current_player == player_x ? @current_player = player_o : @current_player = player_x
     end
 
     def make_move(player)
@@ -57,12 +54,6 @@ module TicTacToe
       if board.draw?
         display.output_draw_announcement
       end
-    end
-
-    private
-
-    def parse(choice_of_mark)
-      choice_of_mark == 1 ? "X" : "O"
     end
 
   end

@@ -8,8 +8,8 @@ require 'tic_tac_toe/display'
 require 'tic_tac_toe/game'
 
 board = TicTacToe::Board.new
-computer = TicTacToe::Computer.new
-human = TicTacToe::Human.new
+player_x = TicTacToe::Human.new(mark: "X")
+player_o = TicTacToe::Computer.new(mark: "O")
 display = TicTacToe::Display.new
 
-TicTacToe::Game.new(computer: computer, human: human, board: board, display: display).play
+TicTacToe::Game.new(player_x: player_x, player_o: player_o, board: board, display: display).play

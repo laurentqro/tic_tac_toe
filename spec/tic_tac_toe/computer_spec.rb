@@ -1,5 +1,6 @@
 require "tic_tac_toe/computer"
 require "tic_tac_toe/board"
+require 'tic_tac_toe/player'
 
 describe TicTacToe::Computer do
 
