@@ -12,13 +12,6 @@ module TicTacToe
       output_line_space
     end
 
-    def get_mark
-      @output.puts "Choose your mark:"
-      @output.puts "\s1: X"
-      @output.puts "\s2: O"
-      @input.gets.chomp.to_i
-    end
-
     def get_move
       @output.puts "Please enter the number of a space to mark it:"
       get_user_input
@@ -44,6 +37,11 @@ module TicTacToe
 
     def output_invalid_move_message
       @output.print "You entered an invalid move.\s"
+    end
+
+    def get_player_type_for(mark)
+      @output.puts "Who will be player #{mark}?\n\s1: Human\n\s2: Computer\n"
+      get_user_input
     end
 
     private

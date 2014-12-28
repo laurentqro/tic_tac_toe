@@ -13,13 +13,6 @@ describe TicTacToe::Display do
     end
   end
 
-  describe "#get_mark" do
-    it "asks first player to choose a mark X or O" do
-      display.get_mark
-      expect(output.string).to eql "Choose your mark:\n\s1: X\n\s2: O\n"
-    end
-  end
-
   describe "#get_move" do
     it "asks current player for his move" do
       display.get_move
@@ -60,6 +53,18 @@ describe TicTacToe::Display do
     it "alerts the player of an invalid move" do
       display.output_invalid_move_message
       expect(output.string).to eql "You entered an invalid move.\s"
+    end
+  end
+
+  describe "#get_player_type" do
+    it "asks the user to choose a player type for X" do
+      display.get_player_type_for("X")
+      expect(output.string).to eql "Who will be player X?\n\s1: Human\n\s2: Computer\n"
+    end
+
+    it "asks the user to choose a player type for O" do
+      display.get_player_type_for("O")
+      expect(output.string).to eql "Who will be player O?\n\s1: Human\n\s2: Computer\n"
     end
   end
 
