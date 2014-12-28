@@ -5,11 +5,14 @@ require 'tic_tac_toe/board'
 require 'tic_tac_toe/computer'
 require 'tic_tac_toe/human'
 require 'tic_tac_toe/display'
+require 'tic_tac_toe/setup'
 require 'tic_tac_toe/game'
 
 board = TicTacToe::Board.new
-player_x = TicTacToe::Human.new(mark: "X")
-player_o = TicTacToe::Computer.new(mark: "O")
 display = TicTacToe::Display.new
+
+setup = TicTacToe::Setup.new(display)
+player_x = setup.player("X")
+player_o = setup.player("O")
 
 TicTacToe::Game.new(player_x: player_x, player_o: player_o, board: board, display: display).play
