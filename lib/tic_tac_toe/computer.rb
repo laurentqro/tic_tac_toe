@@ -4,6 +4,17 @@ module TicTacToe
   class Computer < Player
     attr_accessor :mark
 
+    STRATEGIES = [
+      win = lambda { |context| return context.winning_space(context.mark) },
+      block_win = lambda { |context| return context.winning_space(context.opponent_mark) },
+      fork = lambda { |context| return context.space_to_fork(context.mark, context.board) },
+      block_fork = lambda { |context| return context.attacking_moves.first || context.space_to_fork(context.opponent_mark, context.board) },
+      play_center = lambda { |context| return 5 if context.board.available_moves.include? 5 },
+      play_opposite_corner = lambda { |context| return context.available_opposite_corner.first },
+      play_corner = lambda { |context| return context.board.corners.grep(Fixnum).first },
+      play_free_space = lambda { |context| return context.board.available_moves.first }
+    ]
+
     def choose_mark
       opponent_mark = ["X", "O"].find { |mark| board.grid.grep(mark).count.odd? }
       opponent_mark == "X" ? @mark = "O" : @mark = "X"
@@ -11,53 +22,18 @@ module TicTacToe
 
     def pick_move
       mark = @mark || choose_mark
-
-      if winning_spaces(mark, board).any?
-        return winning_space(mark)
-      end
-
-      if winning_spaces(opponent_mark, board).any?
-        return winning_space(opponent_mark)
-      end
-
-      if space_to_fork(mark, board)
-        return space_to_fork(mark, board)
-      end
-
-      if triples_with_only_one_mark(mark).any? && space_to_fork(opponent_mark, board)
-        attacking_moves  = spaces_on_triples_with_only_one_mark(mark).reject do |move|
-          results_in_space_to_fork?(move)
-        end
-        return attacking_moves.first || space_to_fork(opponent_mark, board)
-      end
-
-      if board.available_moves.include? 5
-        return 5
-      end
-
-      if board.corners.include? opponent_mark && available_opposite_corner
-        return available_opposite_corner
-      end
-
-      if board.corners.any? { |corner| board.available_moves.include? corner }
-        return board.corners.grep(Fixnum).first
-      end
-
-      if board.available_moves.any?
-        return board.available_moves.first
-      end
+      best_strategy = STRATEGIES.select { |strategy| strategy.call(self) }.first
+      best_strategy.call(self)
     end
 
-    private
+    # Public helper methods
 
     def winning_space(mark)
       winning_spaces(mark, board).first
     end
 
-    def winning_spaces(mark, board)
-      winning_triples(mark, board).map do |winning_triple|
-        available_space_on_triple(winning_triple)
-      end
+    def opponent_mark
+      @mark == "X" ? "O" : "X"
     end
 
     def space_to_fork(mark, board)
@@ -65,6 +41,24 @@ module TicTacToe
         fake_board = create_fake_board
         fake_board.mark_space(space, mark)
         winning_spaces(mark, fake_board).count == 2
+      end
+    end
+
+    def attacking_moves
+      spaces_on_triples_with_only_one_mark(mark).reject { |move| results_in_space_to_fork?(move) }
+    end
+
+    def available_opposite_corner
+      board.grid.map.with_index do |space, index|
+        board.opposite_corner(index) if space == opponent_mark && board.opposite_corner(index).is_a?(Fixnum)
+      end
+    end
+
+    private
+
+    def winning_spaces(mark, board)
+      winning_triples(mark, board).map do |winning_triple|
+        available_space_on_triple(winning_triple)
       end
     end
 
@@ -82,10 +76,6 @@ module TicTacToe
 
     def available_space_on_triple?(triple)
       available_space_on_triple(triple) != nil
-    end
-
-    def opponent_mark
-      @mark == "X" ? "O" : "X"
     end
 
     def results_in_space_to_fork?(move)
@@ -113,12 +103,10 @@ module TicTacToe
     end
 
     def spaces_on_triples_with_only_one_mark(mark)
-      triples_with_only_one_mark(mark).flatten!.uniq.grep(Integer)
-    end
-
-    def available_opposite_corner
-      board.grid.map.with_index do |space, index|
-        return board.opposite_corner(index) if space == opponent_mark && board.opposite_corner(index).is_a?(Fixnum)
+      if triples_with_only_one_mark(mark).any?
+        triples_with_only_one_mark(mark).flatten!.uniq.grep(Integer)
+      else
+        []
       end
     end
   end
