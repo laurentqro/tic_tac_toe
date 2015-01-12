@@ -4,16 +4,16 @@ module TicTacToe
   class Computer < Player
     attr_accessor :mark
 
-    STRATEGIES = [
-      win = lambda { |context| return context.winning_space(context.mark) },
-      block_win = lambda { |context| return context.winning_space(context.opponent_mark) },
-      fork = lambda { |context| return context.space_to_fork(context.mark, context.board) },
-      block_fork = lambda { |context| return context.attacking_moves.first || context.space_to_fork(context.opponent_mark, context.board) },
-      play_center = lambda { |context| return 5 if context.board.available_moves.include? 5 },
-      play_opposite_corner = lambda { |context| return context.available_opposite_corner.first },
-      play_corner = lambda { |context| return context.board.corners.grep(Fixnum).first },
-      play_free_space = lambda { |context| return context.board.available_moves.first }
-    ]
+    STRATEGIES = {
+      win: lambda { |context| return context.winning_space(context.mark) },
+      block_win: lambda { |context| return context.winning_space(context.opponent_mark) },
+      fork: lambda { |context| return context.space_to_fork(context.mark, context.board) },
+      block_fork: lambda { |context| return context.attacking_moves.first || context.space_to_fork(context.opponent_mark, context.board) },
+      play_center: lambda { |context| return 5 if context.board.available_moves.include? 5 },
+      play_opposite_corner: lambda { |context| return context.available_opposite_corner.first },
+      play_corner: lambda { |context| return context.board.corners.grep(Fixnum).first },
+      play_free_space: lambda { |context| return context.board.available_moves.first }
+    }
 
     def choose_mark
       opponent_mark = ["X", "O"].find { |mark| board.grid.grep(mark).count.odd? }
@@ -22,7 +22,7 @@ module TicTacToe
 
     def pick_move
       mark = @mark || choose_mark
-      best_strategy = STRATEGIES.select { |strategy| strategy.call(self) }.first
+      best_strategy = STRATEGIES.values.find { |strategy| strategy.call(self) }
       best_strategy.call(self)
     end
 
