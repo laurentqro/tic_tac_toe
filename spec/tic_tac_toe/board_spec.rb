@@ -44,7 +44,9 @@ describe TicTacToe::Board do
 
   describe "#draw?" do
     it "checks for a draw" do
-      board = TicTacToe::Board.new ["X", "O", "X", "O", "X", "O", "X", "O", "X"]
+      board = TicTacToe::Board.new ["X", "O", "X",
+                                    "O", "X", "O",
+                                    "O", "X", "O"]
       expect(board.draw?).to eql true
     end
   end
@@ -92,6 +94,13 @@ describe TicTacToe::Board do
     it "returns false if the chosen space is an invalid move" do
       board = TicTacToe::Board.new ["O", 2, 3, 4, 5, 6, 7, 8, 9]
       expect(board.is_valid_move?(1)).to eql false
+    end
+  end
+
+  describe "#winning_mark" do
+    it "returns the mark of the winner" do
+      board = TicTacToe::Board.new ["X", "X", "X", 4, "O", 6 , "O", 8, 9]
+      expect(board.winning_mark).to eql "X"
     end
   end
 

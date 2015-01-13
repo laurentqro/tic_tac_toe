@@ -1,6 +1,7 @@
 module TicTacToe
   class Board
     attr_reader :grid
+    attr_accessor :winning_mark
 
     def initialize(grid=[1, 2, 3, 4, 5, 6, 7, 8, 9])
       @grid = grid
@@ -13,7 +14,7 @@ module TicTacToe
     end
 
     def available_moves
-     grid.grep(Integer)
+      grid.grep(Integer)
     end
 
     def winner?
@@ -21,7 +22,7 @@ module TicTacToe
     end
 
     def draw?
-      available_moves == []
+      winner? == false && available_moves == []
     end
 
     def triples
@@ -46,7 +47,24 @@ module TicTacToe
       available_moves.include?(space)
     end
 
+    def winning_mark
+      @winner ||= WINNING_COMBINATIONS.collect { |positions|
+        (grid[positions[0]] == grid[positions[1]] &&
+          grid[positions[1]] == grid[positions[2]] &&
+          grid[positions[0]]) || nil
+      }.compact.first
+    end
+
     private
+
+    WINNING_COMBINATIONS =  [0, 1, 2],
+                            [3, 4, 5],
+                            [6, 7, 8],
+                            [0, 3, 6],
+                            [1, 4, 7],
+                            [2, 5, 8],
+                            [0, 4, 8],
+                            [6, 4, 2]
 
     def rows
       grid.each_slice(3).to_a
